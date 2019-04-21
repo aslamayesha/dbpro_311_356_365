@@ -8,7 +8,7 @@ namespace inventory_store.Controllers
 {
     public class StaffController : Controller
     {
-        // GET: Admin
+      
         public ActionResult Home()
         {
             return View();
@@ -17,7 +17,15 @@ namespace inventory_store.Controllers
         {
             return View();
         }
+        public ActionResult AddSales()
+        {
+            return View();
+        }
+        public ActionResult Inventory()
+        {
+            return View();
+        }
 
-        
+
     }
 }

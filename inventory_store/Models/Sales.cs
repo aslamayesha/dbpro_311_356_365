@@ -8,7 +8,11 @@ namespace inventory_store.Models
 {
     public class Sales
     {
-         [Required]
+        [Required]
+        public int MedicineId { get; set; }
+        [Required]
+        public int StaffId { get; set; }
+        [Required]
         public string Name { get; set; }
         [Required]
         public string Formula { get; set; }
