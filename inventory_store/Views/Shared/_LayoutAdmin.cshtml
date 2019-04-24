@@ -1,208 +1,465 @@
-﻿<!doctype html>
-<html lang="en">
+﻿@*<!doctype html>
+    <html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="img/favicon.png" type="image/png">
-    <title>E-Medicine</title>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" href="img/favicon.png" type="image/png">
+        <title>E-Medicine</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="~/css/bootstrap.css">
-    <link rel="stylesheet" href="`/vendors/linericon/style.css">
-    <link rel="stylesheet" href="~/css/font-awesome.min.css">
-    <link rel="stylesheet" href="~/vendors/owl-carousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="~/vendors/lightbox/simpleLightbox.css">
-    <link rel="stylesheet" href="~/vendors/nice-select/css/nice-select.css">
-    <link rel="stylesheet" href="~/vendors/animate-css/animate.css">
-    <link rel="stylesheet" href="~/vendors/jquery-ui/jquery-ui.css">
-    <!-- main css -->
-    <link rel="stylesheet" href="~/css/style.css">
-    <link rel="stylesheet" href="~/css/responsive.css">
-</head>
-<body>
-    <header class="header_area">
-        <div class="top_menu row m0">
-            <div class="container">
-                <div class="float-left">
-                    <ul class="left_side">
-                        <li>
-                            <a href="login.html">
-                                <i class="fa fa-facebook-f"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="login.html">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="login.html">
-                                <i class="fa fa-dribbble"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="login.html">
-                                <i class="fa fa-behance"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="float-right">
-                    <ul class="right_side">
-                        <li>
-                            <a href="login.html">
-                                <i class="lnr lnr-phone-handset"></i>
-                                012-6532-568-9746
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="lnr lnr-envelope"></i>
-                                emergency@colorlib.com
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="main_menu">
-            <nav class="navbar navbar-expand-lg navbar-light">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="~/css/bootstrap.css">
+        <link rel="stylesheet" href="`/vendors/linericon/style.css">
+        <link rel="stylesheet" href="~/css/font-awesome.min.css">
+        <link rel="stylesheet" href="~/vendors/owl-carousel/owl.carousel.min.css">
+        <link rel="stylesheet" href="~/vendors/lightbox/simpleLightbox.css">
+        <link rel="stylesheet" href="~/vendors/nice-select/css/nice-select.css">
+        <link rel="stylesheet" href="~/vendors/animate-css/animate.css">
+        <link rel="stylesheet" href="~/vendors/jquery-ui/jquery-ui.css">
+        <!-- main css -->
+        <link rel="stylesheet" href="~/css/style.css">
+        <link rel="stylesheet" href="~/css/responsive.css">
+    </head>
+    <body>
+        <header class="header_area">
+            <div class="top_menu row m0">
                 <div class="container">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <a class="navbar-brand logo_h" href="index.html">
-                        <!--<img src="img/logo.png" alt=""> -->
-                        <h1>E-Medicine</h1>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                        <div class="row ml-0 w-100">
-                            <div class="col-lg-12 pr-0">
-                                <ul class="nav navbar-nav center_nav pull-right">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" >@Html.ActionLink("Home", "Home", "Admin")</a>
-                                    </li>
-                                    <li class="nav-item ">
-                                        <a class="nav-link" >@Html.ActionLink("Add Staff","Addstaff","Admin")</a>
-                                    </li>
-                                    <li class="nav-item ">
-                                        <a class="nav-link">@Html.ActionLink("Add Slaray", "Addsalary", "Admin")</a>
-                                    </li>
-                                   
-                                   
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="float-left">
+                        <ul class="left_side">
+                            <li>
+                                <a href="login.html">
+                                    <i class="fa fa-facebook-f"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="login.html">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="login.html">
+                                    <i class="fa fa-dribbble"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="login.html">
+                                    <i class="fa fa-behance"></i>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                </div>
-            </nav>
-        </div>
-    </header>
-    <div>
-        @RenderBody();
-    </div>
-    <footer class="footer-area section_gap">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2  col-md-6">
-                    <div class="single-footer-widget">
-                        <h6>Top Products</h6>
-                        <ul class="footer-nav">
+                    <div class="float-right">
+                        <ul class="right_side">
                             <li>
-                                <a href="#">Managed Website</a>
+                                <a href="login.html">
+                                    <i class="lnr lnr-phone-handset"></i>
+                                    012-6532-568-9746
+                                </a>
                             </li>
                             <li>
-                                <a href="#">Manage Reputation</a>
-                            </li>
-                            <li>
-                                <a href="#">Power Tools</a>
-                            </li>
-                            <li>
-                                <a href="#">Marketing Service</a>
+                                <a href="#">
+                                    <i class="lnr lnr-envelope"></i>
+                                    emergency@colorlib.com
+                                </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-4  col-md-6">
-                    <div class="single-footer-widget mail-chimp">
-                        <h6 class="mb-20">Contact Us</h6>
-                        <p>
-                            56/8, Santa bullevard, Rocky beach, San fransisco, Los angeles, USA
-                        </p>
-                        <h3>012-6532-568-9746</h3>
-                        <h3>012-6532-568-97468</h3>
-                    </div>
-                </div>
-                <div class="col-lg-6  col-md-12">
-                    <div class="single-footer-widget newsletter">
-                        <h6>Newsletter</h6>
-                        <p>You can trust us. we only send promo offers, not a single spam.</p>
-                        <div id="mc_embed_signup">
-                            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                  method="get" class="form-inline">
+            </div>
+            <div class="main_menu">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <a class="navbar-brand logo_h" href="index.html">
+                            <!--<img src="img/logo.png" alt=""> -->
+                            <h1>E-Medicine</h1>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                            <div class="row ml-0 w-100">
+                                <div class="col-lg-12 pr-0">
+                                    <ul class="nav navbar-nav center_nav pull-right">
+                                        <li class="nav-item active">
+                                            <a class="nav-link" >@Html.ActionLink("Home", "Home", "Admin")</a>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a class="nav-link" >@Html.ActionLink("Add Staff","Addstaff","Admin")</a>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a class="nav-link">@Html.ActionLink("Add Slaray", "Addsalary", "Admin")</a>
+                                        </li>
 
-                                <div class="form-group row">
-                                    <div class="col-lg-7 col-md-6 col-sm-12">
-                                        <input name="EMAIL" placeholder="Your Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address '"
-                                               required="" type="email">
-                                    </div>
 
-                                    <div class="col-lg-5 col-md-12">
-                                        <button class="nw-btn main_btn circle">
-                                            get started
-                                            <span class="lnr lnr-arrow-right"></span>
-                                        </button>
-                                    </div>
+                                    </ul>
                                 </div>
-                                <div class="info"></div>
-                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <div>
+            @RenderBody();
+        </div>
+        <footer class="footer-area section_gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2  col-md-6">
+                        <div class="single-footer-widget">
+                            <h6>Top Products</h6>
+                            <ul class="footer-nav">
+                                <li>
+                                    <a href="#">Managed Website</a>
+                                </li>
+                                <li>
+                                    <a href="#">Manage Reputation</a>
+                                </li>
+                                <li>
+                                    <a href="#">Power Tools</a>
+                                </li>
+                                <li>
+                                    <a href="#">Marketing Service</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4  col-md-6">
+                        <div class="single-footer-widget mail-chimp">
+                            <h6 class="mb-20">Contact Us</h6>
+                            <p>
+                                56/8, Santa bullevard, Rocky beach, San fransisco, Los angeles, USA
+                            </p>
+                            <h3>012-6532-568-9746</h3>
+                            <h3>012-6532-568-97468</h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-6  col-md-12">
+                        <div class="single-footer-widget newsletter">
+                            <h6>Newsletter</h6>
+                            <p>You can trust us. we only send promo offers, not a single spam.</p>
+                            <div id="mc_embed_signup">
+                                <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                                      method="get" class="form-inline">
+
+                                    <div class="form-group row">
+                                        <div class="col-lg-7 col-md-6 col-sm-12">
+                                            <input name="EMAIL" placeholder="Your Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address '"
+                                                   required="" type="email">
+                                        </div>
+
+                                        <div class="col-lg-5 col-md-12">
+                                            <button class="nw-btn main_btn circle">
+                                                get started
+                                                <span class="lnr lnr-arrow-right"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="info"></div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row footer-bottom d-flex justify-content-between">
-                <p class="col-lg-8 col-sm-12 footer-text m-0">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
-                <div class="col-lg-4 col-sm-12 footer-social">
-                    <a href="#">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                    <a href="#">
-                        <i class="fa fa-twitter"></i>
-                    </a>
-                    <a href="#">
-                        <i class="fa fa-dribbble"></i>
-                    </a>
-                    <a href="#">
-                        <i class="fa fa-behance"></i>
-                    </a>
+                <div class="row footer-bottom d-flex justify-content-between">
+                    <p class="col-lg-8 col-sm-12 footer-text m-0">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                    <div class="col-lg-4 col-sm-12 footer-social">
+                        <a href="#">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="vendors/nice-select/js/jquery.nice-select.min.js"></script>
-    <script src="vendors/isotope/isotope-min.js"></script>
-    <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-    <script src="js/jquery.ajaxchimp.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
-    <script src="js/mail-script.js"></script>
-    <script src="js/custom.js"></script>
-</body>
+        </footer>
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/popper.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="vendors/nice-select/js/jquery.nice-select.min.js"></script>
+        <script src="vendors/isotope/isotope-min.js"></script>
+        <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+        <script src="js/jquery.ajaxchimp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+        <script src="js/mail-script.js"></script>
+        <script src="js/custom.js"></script>
+    </body>
 
+    </html>*@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="~/img/favicon.png" type="image/png">
+    <title>E-Medicine</title>
+ 
+
+    @*sidebar updated*@
+    <link rel="stylesheet" href="~/Radiant/vendors/iconfonts/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="~/Radiant/vendors/iconfonts/puse-icons-feather/feather.css" />
+    <link rel="stylesheet" href="~/Radiant/vendors/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="~/Radiant/vendors/css/vendor.bundle.addons.css" />
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <link rel="stylesheet" href="~/Radiant/vendors/lightgallery/css/lightgallery.css" />
+
+    <link rel="stylesheet" href="~/Radiant/vendors/iconfonts/font-awesome/css/font-awesome.min.css" />
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="~/Radiant/css/style.css" />
+    <!-- endinject -->
+    <link rel="shortcut icon" href="~/Radiant/~/Radiant/images/favicon.png" />
+
+
+    @*sidebar updated*@
+</head>
+
+<body style="background-color:#f1f2f7">
+
+
+    <div class="container-scroller">
+        <!-- partial:../../partials/_navbar.html -->
+        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row ">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+                <h6 style="font-size:20px;margin-top:30px">
+                @*<a class="nav-item"><span class="menu-title" style="color:white"><i class="fa fa-medkit">    P.M.S</i></span></a>*@
+                <img src="~/img/favicon.png" /> <span class="menu-title" style="color:white">E-Medicine Store</span></h6>
+            </div>
+
+            <div class="navbar-menu-wrapper d-flex align-items-center">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+                <ul class="navbar-nav navbar-nav-left">
+                
+
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-money"></i>
+                            <span class="count bg-success">@*@ViewData["SaleToday"]*@ 2
+                             </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list align-content-center" aria-labelledby="messageDropdown">
+                            <div class="dropdown-item py-3 text-white" style="background-color:darkcyan;margin-right:20px">
+
+                                @ViewData["SaleToday"]  sales today
+
+
+                            </div>
+
+                            <a class="dropdown-item preview-item text-center bg-success text-white align-self-center" style="margin:auto;width:80%;margin-top:10px" href="/Finance/Index">
+                                View All Sales
+                            </a>
+
+
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-medkit"></i>
+                            <span class="count bg-success"> 8
+                                @ViewData["MedicineAddToday"]
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-left navbar-dropdown preview-list align-content-center" aria-labelledby="messageDropdown">
+                            <div class="dropdown-item py-3 text-white" style="background-color:darkcyan;margin-right:20px">
+
+                                @ViewData["MedicineAddToday"] Medicine Added Today
+
+
+                            </div>
+
+                            <a class="dropdown-item preview-item text-center bg-success text-white align-self-center" style="margin:auto;width:80%;margin-top:10px" href="/Stock/Index">
+                                View All Medicine
+                            </a>
+
+
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                            <span class="mr-3">
+                                <i class="fa fa-user-md"></i> Numan 
+                                @ViewData["FullName"]
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+
+                            <a class="dropdown-item" href="/Manage/ChangePassword">
+                                Change Password
+                            </a>
+
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="Logout" class="dropdown-item" />
+
+                            }
+
+                        </div>
+                    </li>
+                </ul>
+
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <span class="icon-menu"></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+
+            <!-- partial:../../partials/_settings-panel.html -->
+            <!-- partial -->
+            <!-- partial:../../partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+
+
+                    @*related navigation link start*@
+                    <li class="nav-item"> <a class="nav-link" href="/Dashboard/Index"> <i class="fa  fa-tachometer" style="color:lightgray"></i>  <span class="menu-title" style="margin-left:20px">Dashboard</span></a> </li>
+
+                    <li class="nav-item"> <a class="nav-link" href="/Finance/Create"> <i class="fa  fa-money" style="color:lightgray"></i>  <span class="menu-title" style="margin-left:20px">POS</span></a> </li>
+
+
+                    @if (Context.User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#med" aria-expanded="false" aria-controls="med"><i class="fa  fa-medkit" ></i>  <span class="menu-title" style="margin-left:20px">Medicine</span><i class="menu-arrow"></i></a>
+                            <div class="collapse" id="med">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" href="/Stock/MedicineView">Medicine List</a></li>
+
+                                    <li class="nav-item"> <a class="nav-link" href="/Stock/AddMedicine">Add Medicine</a></li>
+                                    @* <li class="nav-item"> <a class="nav-link" href="/Stock/MedicineCategory">Medicine Category</a></li>*@
+                                    <li class="nav-item"> <a class="nav-link" href="/Stock/AddNewCategory">Add New Category</a></li>
+
+                                </ul>
+                            </div>
+                        </li>
+                    }
+                    else if (Context.User.IsInRole("Staff"))
+                    {
+                        <li class="nav-item"> <a class="nav-link" href="/Stock/MedicineView"> <i class="fa  fa-medkit" style="color:lightgray"></i>  <span class="menu-title" style="margin-left:20px">Medicines</span></a> </li>
+                    }
+
+
+                    <li class="nav-item"> <a class="nav-link" href="/Finance/Index"><i class="fa  fa-money" style="color:lightgray"></i>  <span class="menu-title" style="margin-left:20px">All Sales</span></a> </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#expense" aria-expanded="false" aria-controls="expense"> <i class="fa  fa-dollar" style="color:lightgray"></i>  <span class="menu-title" style="margin-left:20px">Expenses</span><i class="menu-arrow"></i></a>
+                        <div class="collapse" id="expense">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="/Finance/ViewExpenses">Expense</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/Finance/AddExpenses">Add Expense</a></li>
+
+                                <li class="nav-item"> <a class="nav-link" href="/Finance/AddExpenseCategory">Expense Category</a></li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item"> <a class="nav-link" href="/Stock/StockAlert"> <i class="fa  fa-medkit" style="color:lightgray"></i>  <span class="menu-title" style="margin-left:20px">Stock Alert</span></a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/Stock/ExpiryAlert"> <i class="fa  fa-medkit" style="color:lightgray"></i>  <span class="menu-title" style="margin-left:20px">ExpiryAlert</span></a> </li>
+                    @if (Context.User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item"> <a class="nav-link" href="/Staff/Index"><i class="fa  fa-user" style="color:lightgray"></i>  <span class="menu-title" style="margin-left:20px">Staff</span></a> </li>}
+
+                    @*link end*@
+                </ul>
+            </nav>
+
+
+            <!-- partial -->
+            <div class="main-panel">
+
+
+                <div class="loader"></div>
+                <div class="content-wrapper">
+                    @RenderBody()
+
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:../../partials/_footer.html -->
+
+
+
+                <footer class="footer">
+                    <div class="container-fluid clearfix">
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018 <a href="http://www.urbanui.com/" target="_blank">Pharmacy Management System</a>. All rights reserved.</span>
+
+                    </div>
+                </footer>
+
+
+
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+
+    <!-- container-scroller -->
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="~/Radiant/vendors/js/vendor.bundle.base.js"></script>
+    <script src="~/Radiant/vendors/js/vendor.bundle.addons.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <script src="~/Radiant/vendors/lightgallery/js/lightgallery-all.min.js"></script>
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="~/Radiant/js/off-canvas.js"></script>
+    <script src="~/Radiant/js/hoverable-collapse.js"></script>
+    <script src="~/Radiant/js/misc.js"></script>
+    <script src="~/Radiant/js/settings.js"></script>
+    <script src="~/Radiant/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="~/Radiant/js/light-gallery.js"></script>
+
+    <script src="~/Radiant/js/dashboard.js"></script>
+    <!---For table -->
+    <script src="~/Radiant/js/data-table.js"></script>
+    <!-- End custom js for this page-->
+    <script src="~/Radiant/js/modal-demo.js"></script>
+
+    <!-- Custom js for this page-->
+    @*sidebar end template body*@
+
+
+
+
+
+ @*   @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)*@
+</body>
 </html>
+
+
+

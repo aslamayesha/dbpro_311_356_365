@@ -297,6 +297,10 @@
     <Folder Include="Hospice Medical-doc\" />
     <Folder Include="img\" />
     <Folder Include="js\" />
+    <Folder Include="Radiant\css\" />
+    <Folder Include="Radiant\images\" />
+    <Folder Include="Radiant\js\" />
+    <Folder Include="Radiant\vendors\" />
     <Folder Include="scss\" />
     <Folder Include="vendors\" />
   </ItemGroup>
