@@ -207,6 +207,7 @@
     <Compile Include="Models\Addstaff.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Inventory.cs" />
+    <Compile Include="Models\list_staff.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Medicine.cs" />
     <Compile Include="Models\Salary.cs" />
@@ -301,8 +302,7 @@
     <Folder Include="Radiant\images\" />
     <Folder Include="Radiant\js\" />
     <Folder Include="Radiant\vendors\" />
-    <Folder Include="scss\" />
-    <Folder Include="vendors\" />
+    <Folder Include="vendors\scss\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
