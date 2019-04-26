@@ -76,6 +76,25 @@ namespace inventory_store.Controllers
 
             return View();
         }
+        [HttpPost]
+
+        public ActionResult Edit_staff(int? id, list_staff s)
+        {
+            SqlConnection con = new SqlConnection(constr);
+            con.Open();
+            if (con.State == System.Data.ConnectionState.Open)
+            {
+
+                string q = "UPDATE [Staff] SET  Staff.Username='" + s.staff.Username.ToString() + "',Staff.Email='" + s.staff.Email.ToString() + "',Staff.Contact='" + s.staff.Contact.ToString() + "',Staff.Address='" + s.staff.Address.ToString() + "' where Staff.Id='" + Convert.ToInt32(s.staff.Id) + "'";
+                SqlCommand cmd = new SqlCommand(q, con);
+                cmd.ExecuteNonQuery();
+                return RedirectToAction("Addstaff");
+
+
+
+            }
+            return View();
+        }
         public ActionResult Delete_staff(int ?id)
         {
             list_staff f = new list_staff();
