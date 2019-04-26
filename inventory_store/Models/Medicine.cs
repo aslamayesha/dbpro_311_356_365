@@ -8,13 +8,15 @@ using System.ComponentModel.DataAnnotations;
 namespace inventory_store.Models
 {
     public class Medicine
-    {[Required]
+    {
+        public int? Id { get; set; }
+        [Required]
         public string Name { get; set; }
         [Required]
         public string Formula { get; set; }
         [Required]
         public string Category { get; set; }
         [Required]
-        public int  Price { get; set; }
+        public int Price { get; set; }
     }
 }
