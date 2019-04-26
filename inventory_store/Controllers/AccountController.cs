@@ -12,7 +12,7 @@ using inventory_store.Models;
 
 namespace inventory_store.Controllers
 {
-    [Authorize]
+   // [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
