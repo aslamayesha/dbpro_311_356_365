@@ -77,7 +77,7 @@ namespace inventory_store.Controllers
             return View();
         }
         [HttpPost]
-
+        //httppost for edit
         public ActionResult Edit_staff(int? id, list_staff s)
         {
             SqlConnection con = new SqlConnection(constr);
