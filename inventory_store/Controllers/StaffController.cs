@@ -33,13 +33,13 @@ namespace inventory_store.Controllers
             {
 
 
-                SqlCommand cmd = new SqlCommand("select * from [Medicine]", conn);
+                SqlCommand cmd = new SqlCommand("  Select * FROM Medicine INNER JOIN MedicineInventory ON Medicine.Id=MedicineInventory.MedicineId", conn);
                 SqlDataAdapter j = new SqlDataAdapter();
                 j.SelectCommand = cmd;
                 j.Fill(ds);
                 foreach (DataRow t in ds.Rows)
                 {
-                    k.l.Add(new Medicine { Id = Convert.ToInt32(t["Id"]), Name = t["Name"].ToString(), Formula = t["Formula"].ToString(), Category = t["Category"].ToString(), Price = Convert.ToInt32(t["Price"]) });
+                    k.l.Add(new Medicine { Id = Convert.ToInt32(t["Id"]), Name = t["Name"].ToString(), Formula = t["Formula"].ToString(), Category = t["Category"].ToString(), Price = Convert.ToInt32(t["Price"]), MedicinePerPack = Convert.ToInt32(t["MedicinePerPack"]), PurchasePricePack = Convert.ToInt32(t["PurchasePricePack"]), SellingPriceItem = Convert.ToInt32(t["SellingPriceItem"]) });
                 }
                 return View(k);
             }
@@ -62,6 +62,9 @@ namespace inventory_store.Controllers
 
                 SqlCommand cmd3 = new SqlCommand(query1, conn);
                 cmd3.ExecuteNonQuery();
+                string qeury = "Insert into [MedicineInventory] Values ((Select Max(Id) from [Medicine]) ,'" + Convert.ToInt32(s.med.MedicinePerPack) + "','" + Convert.ToInt32(s.med.PurchasePricePack) + "','" + Convert.ToInt32(s.med.SellingPriceItem) + "')";
+                SqlCommand ss = new SqlCommand(qeury, conn);
+                ss.ExecuteNonQuery();
                 return RedirectToAction("addmedicine");
             }
             return View();
@@ -77,7 +80,7 @@ namespace inventory_store.Controllers
             if (conn.State == System.Data.ConnectionState.Open)
             {
 
-                SqlDataAdapter sda1 = new SqlDataAdapter("Select * From Medicine", conn);
+                SqlDataAdapter sda1 = new SqlDataAdapter(" Select * FROM Medicine INNER JOIN MedicineInventory ON Medicine.Id=MedicineInventory.MedicineId", conn);
                 DataTable TT = new DataTable();
 
                 sda1.Fill(TT); //filling the table
@@ -87,18 +90,25 @@ namespace inventory_store.Controllers
                     {
 
                         string q = "Delete From Medicine where Medicine .Id='" + id + "'";
+
                         SqlCommand cmd = new SqlCommand(q, conn);
                         cmd.ExecuteNonQuery();
+                        string qq = "Delete From MedicineInventory where MedicineInventory.MedicineId='" + id + "'";
+
+                        SqlCommand cmd2 = new SqlCommand(qq, conn);
+                        cmd2.ExecuteNonQuery();
+
+
                     }
 
 
                 }
-                SqlDataAdapter sda11 = new SqlDataAdapter("Select * From Medicine ", conn);
+                SqlDataAdapter sda11 = new SqlDataAdapter(" Select * FROM Medicine INNER JOIN MedicineInventory ON Medicine.Id=MedicineInventory.MedicineId ", conn);
                 DataTable TT1 = new DataTable();
                 sda11.Fill(TT1);
                 foreach (DataRow dr in TT1.Rows)  // dt is a DataTable
                 {
-                    k.l.Add(new Medicine { Id = Convert.ToInt32(dr["Id"]), Name = dr["Name"].ToString(), Formula = dr["Formula"].ToString(), Category = dr["Category"].ToString(), Price = Convert.ToInt32(dr["Price"]) });
+                    k.l.Add(new Medicine { Id = Convert.ToInt32(dr["Id"]), Name = dr["Name"].ToString(), Formula = dr["Formula"].ToString(), Category = dr["Category"].ToString(), Price = Convert.ToInt32(dr["Price"]), MedicinePerPack = Convert.ToInt32(dr["MedicinePerPack"]), PurchasePricePack = Convert.ToInt32(dr["PurchasePricePack"]), SellingPriceItem = Convert.ToInt32(dr["SellingPriceItem"]) });
                 }
 
 
@@ -117,12 +127,13 @@ namespace inventory_store.Controllers
             DataTable ds = new DataTable();
             if (conn.State == System.Data.ConnectionState.Open)
             {
-                SqlDataAdapter sda1 = new SqlDataAdapter("Select * From Medicine", conn);
+                SqlDataAdapter sda1 = new SqlDataAdapter("Select * FROM Medicine INNER JOIN MedicineInventory ON Medicine.Id=MedicineInventory.MedicineId", conn);
                 DataTable TT = new DataTable();
                 sda1.Fill(TT);
                 foreach (DataRow dr in TT.Rows)  // dt is a DataTable
                 {
-                    k.l.Add(new Medicine { Id = Convert.ToInt32(dr["Id"]), Name = dr["Name"].ToString(), Formula = dr["Formula"].ToString(), Category = dr["Category"].ToString(), Price = Convert.ToInt32(dr["Price"]) });
+
+                    k.l.Add(new Medicine { Id = Convert.ToInt32(dr["Id"]), Name = dr["Name"].ToString(), Formula = dr["Formula"].ToString(), Category = dr["Category"].ToString(), Price = Convert.ToInt32(dr["Price"]), MedicinePerPack = Convert.ToInt32(dr["MedicinePerPack"]), PurchasePricePack = Convert.ToInt32(dr["PurchasePricePack"]), SellingPriceItem = Convert.ToInt32(dr["SellingPriceItem"]) });
 
                     if (id == Convert.ToInt32(dr["Id"]))
                     {
@@ -132,6 +143,9 @@ namespace inventory_store.Controllers
                         m.Formula = dr["Formula"].ToString();
                         m.Category = dr["Category"].ToString();
                         m.Price = Convert.ToInt32(dr["Price"]);
+                        m.MedicinePerPack = Convert.ToInt32(dr["MedicinePerPack"]);
+                        m.PurchasePricePack = Convert.ToInt32(dr["PurchasePricePack"]);
+                        m.SellingPriceItem = Convert.ToInt32(dr["SellingPriceItem"]);
 
 
                     }
@@ -158,6 +172,10 @@ namespace inventory_store.Controllers
                 string q = "UPDATE [Medicine] SET  Medicine.Name='" + s.med.Name.ToString() + "',Medicine.Formula='" + s.med.Formula.ToString() + "',Medicine.Category='" + s.med.Category.ToString() + "',Medicine.Price='" + Convert.ToInt32(s.med.Price) + "' where Medicine.Id='" + id + "'";
                 SqlCommand cmd = new SqlCommand(q, con);
                 cmd.ExecuteNonQuery();
+                string qq = "UPDATE [MedicineInventory] SET  MedicineInventory.MedicinePerPack='" + Convert.ToInt32(s.med.MedicinePerPack) + "',MedicineInventory.PurchasePricePack='" + Convert.ToInt32(s.med.PurchasePricePack) + "',MedicineInventory.SellingPriceItem='" + Convert.ToInt32(s.med.SellingPriceItem) + "' where MedicineInventory.MedicineId ='" + id + "'";
+                SqlCommand cmd2 = new SqlCommand(qq, con);
+                cmd2.ExecuteNonQuery();
+
                 return RedirectToAction("addmedicine");
 
             }

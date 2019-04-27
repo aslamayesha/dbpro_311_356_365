@@ -18,5 +18,22 @@ namespace inventory_store.Models
         public string Category { get; set; }
         [Required]
         public int Price { get; set; }
+        [Required]
+        public int MedicineId { get; set; }
+        [Required]
+        public int MedicinePerPack { get; set; }
+        [Required]
+        public int PurchasePricePack { get; set; }
+        [Required]
+        public int SellingPriceItem { get; set; }
+
+
+
+
+
+
+
+
+
     }
 }
