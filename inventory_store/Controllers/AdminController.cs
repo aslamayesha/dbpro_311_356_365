@@ -11,7 +11,7 @@ namespace inventory_store.Controllers
 {
     public class AdminController : Controller
     {
-        public string constr = "Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True";
+        DataBaseConnection conD = DataBaseConnection.getInstance();
         // GET: Admin
         public ActionResult Home()
         {
@@ -23,8 +23,7 @@ namespace inventory_store.Controllers
         public ActionResult Addstaff()
         {
             list_staff f = new list_staff();
-            SqlConnection con = new SqlConnection("Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True");
-            con.Open();
+            SqlConnection con = conD.getConnection();
             if (con.State == System.Data.ConnectionState.Open)
             {
                 SqlDataAdapter sda1 = new SqlDataAdapter("Select * From Staff", con);
@@ -37,40 +36,35 @@ namespace inventory_store.Controllers
 
 
                 }
+                con.Close();
                 return View(f);
             }
             else
             {
                 return View();
             }
+            
            
         }
         [HttpPost]
         public ActionResult Addstaff(list_staff s)
         {
-            SqlConnection con = new SqlConnection(constr);
-            con.Open();
+            SqlConnection con = conD.getConnection();
             if (con.State == System.Data.ConnectionState.Open)
             {
-                if (s.staff.Id > 0)
-                {
-                    string q = "UPDATE [Staff] SET  Staff.Username='" + s.staff.Username.ToString() + "',Staff.Email='" + s.staff.Email.ToString() + "',Staff.Contact='" + s.staff.Contact.ToString() + "',Staff.Address='" + s.staff.Address.ToString() + "' where Staff.Id='" + Convert.ToInt32(s.staff.Id) + "'";
-                    SqlCommand cmd = new SqlCommand(q, con);
-                    cmd.ExecuteNonQuery();
-                    return RedirectToAction("Addstaff");
-
-                }
-                else
-                {
+               
                     string q = "Insert INTO [Staff] VALUES('" + s.staff.Username.ToString() + "','" + s.staff.Email.ToString() + "','" + s.staff.Contact.ToString() + "','" + s.staff.Address.ToString() + "')";
                     SqlCommand cmd = new SqlCommand(q, con);
                     cmd.ExecuteNonQuery();
+                    con.Close();
                     return RedirectToAction("Addstaff");
-                 
-                  
-                }
+                    
 
+
+                
                
+
+
 
             }
 
@@ -80,14 +74,14 @@ namespace inventory_store.Controllers
         //httppost for edit
         public ActionResult Edit_staff(int? id, list_staff s)
         {
-            SqlConnection con = new SqlConnection(constr);
-            con.Open();
+            SqlConnection con = conD.getConnection();
             if (con.State == System.Data.ConnectionState.Open)
             {
 
                 string q = "UPDATE [Staff] SET  Staff.Username='" + s.staff.Username.ToString() + "',Staff.Email='" + s.staff.Email.ToString() + "',Staff.Contact='" + s.staff.Contact.ToString() + "',Staff.Address='" + s.staff.Address.ToString() + "' where Staff.Id='" + Convert.ToInt32(s.staff.Id) + "'";
                 SqlCommand cmd = new SqlCommand(q, con);
                 cmd.ExecuteNonQuery();
+                con.Close();
                 return RedirectToAction("Addstaff");
 
 
@@ -98,8 +92,7 @@ namespace inventory_store.Controllers
         public ActionResult Delete_staff(int ?id)
         {
             list_staff f = new list_staff();
-            SqlConnection con = new SqlConnection("Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True");
-            con.Open();
+            SqlConnection con = conD.getConnection();
             if (con.State == System.Data.ConnectionState.Open)
             {
                 SqlDataAdapter sda1 = new SqlDataAdapter("Select * From Staff", con);
@@ -120,6 +113,7 @@ namespace inventory_store.Controllers
                 SqlDataAdapter sda11 = new SqlDataAdapter("Select * From Staff", con);
                 DataTable TT1 = new DataTable();
                 sda11.Fill(TT1);
+                con.Close();
                 foreach (DataRow dr in TT1.Rows)  // dt is a DataTable
                 {
 
@@ -134,8 +128,7 @@ namespace inventory_store.Controllers
         {
             list_staff f = new list_staff();
             Addstaff Staff = new Addstaff();
-            SqlConnection con = new SqlConnection("Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True");
-            con.Open();
+            SqlConnection con = conD.getConnection();
             if (con.State == System.Data.ConnectionState.Open)
             {
                 SqlDataAdapter sda1 = new SqlDataAdapter("Select * From Staff", con);
@@ -163,10 +156,85 @@ namespace inventory_store.Controllers
             
 
         }
-
-        public ActionResult Addsalary()
+        [HttpGet]
+        public ActionResult customer_detail()
         {
-            return View();
+            list_staff f = new list_staff();
+            SqlConnection con = conD.getConnection();
+            if (con.State == System.Data.ConnectionState.Open)
+            {
+                SqlDataAdapter sda1 = new SqlDataAdapter("Select * From Staff", con);
+                DataTable TT = new DataTable();
+                sda1.Fill(TT);
+
+                foreach (DataRow dr in TT.Rows)  // dt is a DataTable
+                {
+                    f.list.Add(new Addstaff { Id = Convert.ToInt32(dr["Id"]), Username = dr["Username"].ToString(), Email = dr["Email"].ToString(), Contact = dr["Contact"].ToString(), Address = dr["Address"].ToString() });
+
+
+                }
+                con.Close();
+                return View(f);
+            }
+            else
+            {
+                return View();
+            }
         }
-    }
+        [HttpGet]
+        public ActionResult Addsalary(int? id)
+        {
+            
+            List_salary f = new List_salary();
+            
+            SqlConnection con = conD.getConnection();
+            if (con.State == System.Data.ConnectionState.Open)
+            {
+                SqlDataAdapter sda1 = new SqlDataAdapter("Select * From Salary Where StaffId='" + id + "'", con);
+                DataTable TT = new DataTable();
+                sda1.Fill(TT);
+
+                foreach (DataRow dr in TT.Rows)  // dt is a DataTable
+                {
+                    
+           f.list.Add(new Salary { med_id = Convert.ToInt32(dr["StaffId"]), SalaryAmount = Convert.ToInt32(dr["SalaryAmount"]), bonus = Convert.ToInt32(dr["Bonus"]), Month = Convert.ToDateTime(dr["Month"]) });
+
+
+                }
+                con.Close();
+                return View(f);
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult Addsalary(int? id, List_salary k)
+        {
+            SqlConnection con = conD.getConnection();
+            if (con.State == System.Data.ConnectionState.Open)
+            {
+
+                string q = "Insert INTO [Salary] VALUES('" + Convert.ToInt32(id) + "','" + Convert.ToInt32(k.s.SalaryAmount) + "','" + Convert.ToInt32(k.s.bonus) + "','" + Convert.ToDateTime(k.s.Month) + "')";
+                SqlCommand cmd = new SqlCommand(q, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                return RedirectToAction("Addsalary");
+
+
+
+
+
+
+
+
+            }
+            return View();
+
+
+        }
+        }
 }

@@ -1,0 +1,65 @@
+﻿@model inventory_store.Models.list_staff
+
+@{
+   
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <br />
+        <br />
+        <table class="table">
+
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.staff.Username)
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.staff.Email)
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.staff.Contact)
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.staff.Address)
+
+                </th>
+                <th>
+                    Update
+
+                </th>
+
+
+            </tr>
+            @foreach (var item in Model.list)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contact)
+                    </td>
+                    <td>  
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        <input type="button" title="Add Salary" class="btn btn-default" style="background-color: #1E90FF; border-radius: 8px; padding: 8px;" value="Add Salary" onclick="location.href='@Url.Action("Addsalary", new { id = item.Id })'" />
+                    </td>
+                    
+
+                </tr>
+            }
+
+        </table>
+}
+
+
