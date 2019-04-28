@@ -6,16 +6,23 @@
     Layout = "~/Views/Shared/_LayoutStaff.cshtml";
 }
 
-<h2>addmedicine</h2>
+<div class="panel panel-default" style="box-shadow:2px 2px 5px grey">
+<div class="panel-heading">
+    <span class="glyphicon glyphicon-plus-sign">
+
+    </span>
+    Add Inventory
+</div>
+</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Medicine</h4>
+       
         @Html.HiddenFor(model => model.med.Id)
-        <hr />
+    
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
@@ -73,23 +80,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="ADD" class="btn btn-default" />
+                <input type="submit" value="ADD" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
 
-<table class="table">
+
+@*<table class="table">
 
     <tr>
         <th>
@@ -161,5 +160,110 @@
         </tr>
     }
 
-</table>
+</table>*@
 
+<div class="card">
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-bordered table-hover" id="order-listing" style="text-align:center">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                            @*  <th>
+                                    @Html.DisplayNameFor(model => model.med.Id)
+
+                                </th>*@
+                           
+                            <th>
+                                @Html.DisplayNameFor(model => model.inv.Name)
+
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.inv.Category)
+
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.inv.NumberofPacks)
+
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.inv.Quantity)
+
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.inv.ManufactureDate)
+
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.inv.ExpiryDate)
+
+                            </th>
+
+
+
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model.llistinv)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Category)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NumberofPacks)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ManufactureDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ExpiryDate)
+                                </td>
+                                <td>
+
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+
+                                                <button type="button" class="btn btn-success" @*style="background-color: #1E90FF; border-radius: 8px; padding: 8px;"*@
+                                                        onclick="location.href='@Url.Action("Delete_inventory", new { id = item.Id })'">
+                                                    <span class="glyphicon glyphicon-edit"></span>
+                                                    Edit
+                                                </button>
+
+                                            </div>
+                                            <div class="col-lg-12" style="margin-top:5px">
+
+                                                <button type="button" class="btn btn-danger" @*style="background-color: #1E90FF; border-radius: 8px; padding: 8px;"*@
+                                                        onclick="location.href='@Url.Action("Edit_inventory", new { id = item.Id })'">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                    Delete
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        }
+
+
+                    </tbody>
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

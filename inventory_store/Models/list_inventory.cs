@@ -13,6 +13,5 @@ namespace inventory_store.Models
         public System.Web.Mvc.SelectList CategoryList { get; set; }
         public Inventory inv { get; set; }
         public Medicine med { get; set; }
-
     }
 }

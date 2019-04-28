@@ -38,7 +38,7 @@ namespace inventory_store.Models
             int rowsAffecetd = cmd.ExecuteNonQuery();
             return rowsAffecetd;
         }
-        public int getRowsCount(string query)
+        public int executeScalar(string query)
         {
             SqlCommand cmd = new SqlCommand(query, getConnection());
             int countRows = int.Parse(cmd.ExecuteScalar().ToString());

@@ -27,13 +27,5 @@ namespace inventory_store.Models
         [Required]
         public int SellingPriceItem { get; set; }
 
-
-
-
-
-
-
-
-
     }
 }

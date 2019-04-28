@@ -6,15 +6,22 @@
     Layout = "~/Views/Shared/_LayoutStaff.cshtml";
 }
 
-<h2>addmedicine</h2>
+<div class="panel panel-default" style="box-shadow:2px 2px 5px grey">
+    <div class="panel-heading">
+        <span class="glyphicon glyphicon-plus-sign">
+
+        </span>
+        Add Medicine
+    </div>
+</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Medicine</h4>
-        <hr />
+       @* <h4>Medicine</h4>
+        <hr />*@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.med.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -47,43 +54,17 @@
                 @Html.ValidationMessageFor(model => model.med.Price, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.med.MedicinePerPack, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.med.MedicinePerPack, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.med.MedicinePerPack, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.med.PurchasePricePack, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.med.PurchasePricePack, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.med.PurchasePricePack, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.med.SellingPriceItem, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.med.SellingPriceItem, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.med.SellingPriceItem, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="ADD" class="btn btn-default" />
+                <input type="submit" value="ADD" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-<br />
-<br />
-<br />
 
+@*
 <table class="table">
 
     <tr>
@@ -106,21 +87,7 @@
         <th>
             @Html.DisplayNameFor(model => model.med.Price)
 
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.med.MedicinePerPack)
-
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.med.PurchasePricePack)
-
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.med.SellingPriceItem)
-
-        </th>
-
-
+        
 
     </tr>
     @foreach (var item in Model.l)
@@ -142,16 +109,8 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MedicinePerPack)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchasePricePack)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SellingPriceItem)
-            </td>
 
-            <td>
+
 
                 @Html.ActionLink("Delete", "delete_medicine", new { id = item.Id }) |   @Html.ActionLink("Edit", "Edit_medicne", new { id = item.Id })
 
@@ -161,4 +120,93 @@
         </tr>
     }
 
-</table>
+</table>*@
+<div class="card">
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-bordered table-hover" id="order-listing" style="text-align:center">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                          @*  <th>
+                                @Html.DisplayNameFor(model => model.med.Id)
+
+                            </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.med.Name)
+
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.med.Formula)
+
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.med.Category)
+
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.med.Price)
+
+                            </th>
+
+
+
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model.l)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Formula)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Category)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </td>
+                                <td>
+
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+
+                                                <button type="button" class="btn btn-success" @*style="background-color: #1E90FF; border-radius: 8px; padding: 8px;"*@
+                                                        onclick="location.href='@Url.Action("Edit_medicne", new { id = item.Id })'">
+                                                    <span class="glyphicon glyphicon-edit"></span>
+                                                    Edit
+                                                </button>
+
+                                            </div>
+                                            <div class="col-lg-12" style="margin-top:5px">
+
+                                                <button type="button" class="btn btn-danger" @*style="background-color: #1E90FF; border-radius: 8px; padding: 8px;"*@
+                                                        onclick="location.href='@Url.Action("delete_medicine", new { id = item.Id })'">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                    Delete
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        }
+
+
+                    </tbody>
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

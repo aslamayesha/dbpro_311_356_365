@@ -5,9 +5,8 @@ using System.Web;
 
 namespace inventory_store.Models
 {
-    public class List_salary
+    public class LoginUser
     {
-        public List<Salary> list = new List<Salary>();
-        public Salary s { get; set; }
+        public static string Username=null;
     }
 }

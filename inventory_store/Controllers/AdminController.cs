@@ -9,16 +9,17 @@ using System.Data.SqlClient;
 
 namespace inventory_store.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : ApplicationBaseController //Controller
     {
+        public string constr = "Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True";
         DataBaseConnection conD = DataBaseConnection.getInstance();
         // GET: Admin
         public ActionResult Home()
         {
             return View();
         }
-       
-        
+
+
         [HttpGet]
         public ActionResult Addstaff()
         {
@@ -32,7 +33,7 @@ namespace inventory_store.Controllers
 
                 foreach (DataRow dr in TT.Rows)  // dt is a DataTable
                 {
-                    f.list.Add(new Addstaff {Id= Convert.ToInt32( dr["Id"]), Username = dr["Username"].ToString(), Email = dr["Email"].ToString(), Contact = dr["Contact"].ToString(), Address = dr["Address"].ToString() });
+                    f.list.Add(new Addstaff { Id = Convert.ToInt32(dr["Id"]), Username = dr["Username"].ToString(), Email = dr["Email"].ToString(), Contact = dr["Contact"].ToString(), Address = dr["Address"].ToString() });
 
 
                 }
@@ -43,8 +44,8 @@ namespace inventory_store.Controllers
             {
                 return View();
             }
-            
-           
+
+
         }
         [HttpPost]
         public ActionResult Addstaff(list_staff s)
@@ -52,17 +53,17 @@ namespace inventory_store.Controllers
             SqlConnection con = conD.getConnection();
             if (con.State == System.Data.ConnectionState.Open)
             {
-               
-                    string q = "Insert INTO [Staff] VALUES('" + s.staff.Username.ToString() + "','" + s.staff.Email.ToString() + "','" + s.staff.Contact.ToString() + "','" + s.staff.Address.ToString() + "')";
-                    SqlCommand cmd = new SqlCommand(q, con);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    return RedirectToAction("Addstaff");
-                    
+
+                string q = "Insert INTO [Staff] VALUES('" + s.staff.Username.ToString() + "','" + s.staff.Email.ToString() + "','" + s.staff.Contact.ToString() + "','" + s.staff.Address.ToString() + "')";
+                SqlCommand cmd = new SqlCommand(q, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                return RedirectToAction("Addstaff");
 
 
-                
-               
+
+
+
 
 
 
@@ -89,7 +90,7 @@ namespace inventory_store.Controllers
             }
             return View();
         }
-        public ActionResult Delete_staff(int ?id)
+        public ActionResult Delete_staff(int? id)
         {
             list_staff f = new list_staff();
             SqlConnection con = conD.getConnection();
@@ -140,7 +141,7 @@ namespace inventory_store.Controllers
                     if (id == Convert.ToInt32(dr["Id"]))
                     {
                         Staff.Id = id;
-                        Staff.Email  = dr["Email"].ToString();
+                        Staff.Email = dr["Email"].ToString();
                         Staff.Contact = dr["Contact"].ToString();
                         Staff.Address = dr["Address"].ToString();
                         Staff.Username = dr["Username"].ToString();
@@ -153,7 +154,7 @@ namespace inventory_store.Controllers
 
             }
             return View("Addstaff", f);
-            
+
 
         }
         [HttpGet]
@@ -184,9 +185,9 @@ namespace inventory_store.Controllers
         [HttpGet]
         public ActionResult Addsalary(int? id)
         {
-            
+
             List_salary f = new List_salary();
-            
+
             SqlConnection con = conD.getConnection();
             if (con.State == System.Data.ConnectionState.Open)
             {
@@ -196,8 +197,8 @@ namespace inventory_store.Controllers
 
                 foreach (DataRow dr in TT.Rows)  // dt is a DataTable
                 {
-                    
-           f.list.Add(new Salary { med_id = Convert.ToInt32(dr["StaffId"]), SalaryAmount = Convert.ToInt32(dr["SalaryAmount"]), bonus = Convert.ToInt32(dr["Bonus"]), Month = Convert.ToDateTime(dr["Month"]) });
+
+                    f.list.Add(new Salary { med_id = Convert.ToInt32(dr["StaffId"]), SalaryAmount = Convert.ToInt32(dr["SalaryAmount"]), bonus = Convert.ToInt32(dr["Bonus"]), Month = Convert.ToDateTime(dr["Month"]) });
 
 
                 }
@@ -236,5 +237,5 @@ namespace inventory_store.Controllers
 
 
         }
-        }
+    }
 }

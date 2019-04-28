@@ -35,7 +35,7 @@ namespace inventory_store.Controllers
             if (ModelState.IsValid)
             {
                 string authorizeQuery = string.Format("select count(Id) from Login where Username='{0}' and Email='{1}' and Password='{2}'", model.Username, model.Email, model.Password);
-                int isExistCount = DataBaseConnection.getInstance().getRowsCount(authorizeQuery);
+                int isExistCount = DataBaseConnection.getInstance().executeScalar(authorizeQuery);
                 if (isExistCount > 0)
                 {
                     string roleQuery = string.Format("select Role from Login where Username='{0}' and Email='{1}' and Password='{2}'", model.Username, model.Email, model.Password);
@@ -43,14 +43,20 @@ namespace inventory_store.Controllers
                     // string role = null;
                     obj.Read();
 
+                    int staffId = 0;
+                    string queryStaffId = string.Format("select Id from Login where Username='{0}' and Email='{1}'", model.Username, model.Email);
+                     staffId = DataBaseConnection.getInstance().executeScalar(queryStaffId);
+                    LoginUser.Username = model.Username;
                     if (obj.GetValue(0).ToString() == "Admin")
                     {
-                        ViewBag.Message = "hahah";
+                       
+                        //  return RedirectToAction("Home", "Admin", new { name = "hello welcome" });
                         return RedirectToAction("Home", "Admin");
                     }
                     else
                     {
                         return RedirectToAction("Home", "Staff");
+                        // return RedirectToAction("Home", "Staff", new { staffId = staffId });
                     }
                 }
             }
@@ -72,7 +78,7 @@ namespace inventory_store.Controllers
                 try
                 {
                     string maxId = "select max(Id) from Login";
-                    int max = DataBaseConnection.getInstance().getRowsCount(maxId) + 1;
+                    int max = DataBaseConnection.getInstance().executeScalar(maxId) + 1;
                     string query = string.Format("insert into Login(Id,Username,Email,Password,Role) values('{0}','{1}','{2}','{3}','{4}')", max, model.Username, model.Email, model.Password, "Admin");
                     DataBaseConnection.getInstance().executeQuery(query);
 
@@ -104,7 +110,7 @@ namespace inventory_store.Controllers
             if (ModelState.IsValid)
             {
                 string authorizeQuery = string.Format("select count(Id) from Login where  Email='{0}'", model.Email);
-                int isExistCount = DataBaseConnection.getInstance().getRowsCount(authorizeQuery);
+                int isExistCount = DataBaseConnection.getInstance().executeScalar(authorizeQuery);
                 if (isExistCount > 0)
                 {
                     try
@@ -114,10 +120,10 @@ namespace inventory_store.Controllers
                         client.EnableSsl = true;
                         client.DeliveryMethod = SmtpDeliveryMethod.Network;
                         client.UseDefaultCredentials = false;
-                        client.Credentials = new NetworkCredential("afshanarsha2783@gmail.com", "20192129");
+                        client.Credentials = new NetworkCredential("risingpearls16@gmail.com", "risingPearls471912");
                         MailMessage msg = new MailMessage();
                         msg.To.Add(model.Email);
-                        msg.From = new MailAddress("afshanarsha2783@gmail.com");
+                        msg.From = new MailAddress("risingpearls16@gmail.com");
                         msg.Subject = "Staff added by admin";
                         msg.Body = "Your New password is : " + random;
                         client.Send(msg);
@@ -159,24 +165,23 @@ namespace inventory_store.Controllers
             throw new NotImplementedException();
         }
 
-        [Authorize]
-        [AllowAnonymous]
+      //  [Authorize]
+     //   [AllowAnonymous]
         public ActionResult ChangedPassword()
         {
             return View();
         }
         [HttpPost]
-        [AllowAnonymous]
+     //   [AllowAnonymous]
         public ActionResult ChangePassword(ChangePasswordViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                string Query = string.Format("update Login set Password='{0}'", model.NewPassword);
-                DataBaseConnection.getInstance().executeQuery(Query);
+           
+                string Query = string.Format("update Login set Password='{0}' where Password='{1}'", model.NewPassword,model.OldPassword);
+               DataBaseConnection.getInstance().executeQuery(Query);
                 return RedirectToAction("Home", "Admin");
+                
 
-            }
-            return View(model);
+          
         }
 
     }

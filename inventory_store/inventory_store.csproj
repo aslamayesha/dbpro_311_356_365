@@ -197,7 +197,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\connectionstring.cs" />
+    <Compile Include="Controllers\ApplicationBaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
@@ -207,6 +207,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Addstaff.cs" />
+    <Compile Include="Models\CreatePOS.cs" />
     <Compile Include="Models\DataBaseConnection.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Inventory.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Models\list_medicine.cs" />
     <Compile Include="Models\List_salary.cs" />
     <Compile Include="Models\list_staff.cs" />
+    <Compile Include="Models\LoginUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Medicine.cs" />
     <Compile Include="Models\Salary.cs" />
@@ -229,6 +231,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="js\Loaderjquery.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -294,13 +297,13 @@
     <Content Include="Views\Shared\_LayoutStaff.cshtml" />
     <Content Include="Views\Staff\addmedicine.cshtml" />
     <Content Include="Views\Staff\Home.cshtml" />
-    <Content Include="Views\Staff\AddSales.cshtml" />
     <Content Include="Views\Staff\Inventory.cshtml" />
     <Content Include="Views\Shared\_LayoutAccount.cshtml" />
     <Content Include="Views\UserAccount\Login.cshtml" />
     <Content Include="Views\UserAccount\Register.cshtml" />
     <Content Include="Views\UserAccount\ForgotPassword.cshtml" />
     <Content Include="Views\UserAccount\ChangedPassword.cshtml" />
+    <Content Include="Views\Staff\AddSales.cshtml" />
     <Content Include="Views\Admin\customer_detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -308,12 +311,12 @@
     <Folder Include="css\" />
     <Folder Include="Hospice Medical-doc\" />
     <Folder Include="img\" />
-    <Folder Include="js\" />
     <Folder Include="Radiant\css\" />
     <Folder Include="Radiant\images\" />
     <Folder Include="Radiant\js\" />
     <Folder Include="Radiant\vendors\" />
     <Folder Include="vendors\scss\" />
+    <Folder Include="Views\ApplicationBase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
