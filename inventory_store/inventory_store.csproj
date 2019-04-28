@@ -210,6 +210,7 @@
     <Compile Include="Models\DataBaseConnection.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Inventory.cs" />
+    <Compile Include="Models\list_inventory.cs" />
     <Compile Include="Models\list_medicine.cs" />
     <Compile Include="Models\List_salary.cs" />
     <Compile Include="Models\list_staff.cs" />

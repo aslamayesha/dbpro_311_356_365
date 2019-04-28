@@ -1,80 +1,79 @@
-﻿@model inventory_store.Models.Inventory
+﻿@model inventory_store.Models.list_inventory
+
 
 @{
     ViewBag.Title = "Inventory";
     Layout = "~/Views/Shared/_LayoutStaff.cshtml";
 }
 
-<h2>Inventory</h2>
+<h2>addmedicine</h2>
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Inventory</h4>
+        <h4>Medicine</h4>
+        @Html.HiddenFor(model => model.med.Id)
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
-            @Html.LabelFor(model => model.MedicineId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.med.Category, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MedicineId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MedicineId, "", new { @class = "text-danger" })
+
+                @Html.DropDownListFor(model => model.med.Category, (IEnumerable<SelectListItem>)ViewBag.Category,
+                   "Select Category", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.med.Category, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.med.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.med.Name, (IEnumerable<SelectListItem>)ViewBag.Name,
+                   "Select Name", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.med.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.inv.NumberofPacks, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.inv.NumberofPacks, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.inv.NumberofPacks, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.inv.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.inv.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.inv.Quantity, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.NumberofPacks, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.inv.ManufactureDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NumberofPacks, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NumberofPacks, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.inv.ManufactureDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.inv.ManufactureDate, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MedicinePerPack, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.inv.ExpiryDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MedicinePerPack, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MedicinePerPack, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.inv.ExpiryDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.inv.ExpiryDate, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PurchasePrice, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PurchasePrice, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PurchasePrice, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SellingPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SellingPrice, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SellingPrice, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ManufactureDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ManufactureDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ManufactureDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Add" class="btn btn-default" />
+                <input type="submit" value="ADD" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -83,4 +82,84 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<table class="table">
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.inv.Id)
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.inv.Name)
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.inv.Category)
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.inv.NumberofPacks)
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.inv.Quantity)
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.inv.ManufactureDate)
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.inv.ExpiryDate)
+
+        </th>
+
+
+
+    </tr>
+    @foreach (var item in Model.llistinv)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberofPacks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManufactureDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpiryDate)
+            </td>
+
+
+
+            <td>
+
+                @Html.ActionLink("Delete", "Delete_inventory", new { id = item.Id }) |   @Html.ActionLink("Edit", "Edit_inventory", new { id = item.Id })
+
+            </td>
+
+        </tr>
+    }
+
+</table>
 

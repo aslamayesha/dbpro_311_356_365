@@ -7,21 +7,25 @@ namespace inventory_store.Models
 {
     public class Inventory
     {
+        public int? Id { get; set; }
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string Category { get; set; }
+
         [Required]
         public int MedicineId { get; set; }
         [Required]
         public int NumberofPacks { get; set; }
         [Required]
-        public int MedicinePerPack { get; set; }
-        [Required]
-        public int PurchasePrice { get; set; }
-        [Required]
-        public int SellingPrice { get; set; }
+        public int Quantity { get; set; }
+
         [Required]
         public DateTime ManufactureDate { get; set; }
         [Required]
         public DateTime ExpiryDate { get; set; }
-       
-      
+
+
     }
 }
