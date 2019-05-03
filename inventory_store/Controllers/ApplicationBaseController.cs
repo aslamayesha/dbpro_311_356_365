@@ -33,6 +33,8 @@ namespace inventory_store.Controllers
 
                  }*/
                 ViewData.Add("FullName", LoginUser.Username);
+
+
             }
             base.OnActionExecuted(filterContext);
         }

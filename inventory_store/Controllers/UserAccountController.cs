@@ -56,7 +56,9 @@ namespace inventory_store.Controllers
                     else
                     {
                         //return RedirectToAction("Home", "Staff");
-                         return RedirectToAction("Home", "Staff", new { staffId = staffId });
+                        LoginUser.staffId = staffId;
+                        return RedirectToAction("Home", "Staff");
+                        // return RedirectToAction("Home", "Staff", new { staffId = staffId });
                     }
                 }
             }

@@ -14,23 +14,23 @@ namespace inventory_store.Controllers
     {
         string constr = "Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True";
         int prevSellQuantity=0,StaffId=0;
-        List<string> allsearch;
-        List<string> StateList;
-     
-        CreatePOS pos;
-      
-        public StaffController()
+        List<string> allsearch = new List<string>();
+        List<string> StateList = new List<string>();
+
+        CreatePOS pos= new CreatePOS();
+
+      /*  public StaffController()
         {
 
             allsearch = new List<string>();
             StateList = new List<string>();
           
            pos = new CreatePOS();
-        }
+        }*/
       //  CreatePOS pos;
-        public ActionResult Home(int StaffId)
+        public ActionResult Home()
         {
-            StaffId = int.Parse(StaffId.ToString());
+           
            
             return View();
         }
@@ -440,7 +440,7 @@ namespace inventory_store.Controllers
         public ActionResult AddSales()
         {
 
-            ViewBag.data = StaffId;
+      
                 string query = "select Sells.InventoryId,Medicine.Name,Medicine.Category,Medicine.Price,Sells.Quantity,Sells.Discount,Sells.Subtotal from Sells join Inventory on Inventory.Id=Sells.InventoryId join Medicine on Medicine.Id=Inventory.MedicineId and Sells.Id='"+this.customerBillId()+"'";
             var data = DataBaseConnection.getInstance().readData(query);
             while (data.Read())
@@ -507,7 +507,7 @@ namespace inventory_store.Controllers
         {
 
             CreatePOS pos = new CreatePOS();
-            string queryObject = "select Medicine.Name,Medicine.Category,Sells.Quantity from Sells join Inventory on Inventory.Id=Sells.InventoryId join Medicine on Medicine.Id=Inventory.MedicineId and Sells.InventoryId='"+id+"'";
+            string queryObject = "select Medicine.Name,Medicine.Category,Sells.Quantity from Sells join Inventory on Inventory.Id=Sells.InventoryId join Medicine on Medicine.Id=Inventory.MedicineId and Sells.InventorId='"+id+"'";
             var editObject = DataBaseConnection.getInstance().readData(queryObject);
             editObject.Read();
             pos.sale.Name = editObject.GetValue(0).ToString();
@@ -595,7 +595,7 @@ namespace inventory_store.Controllers
                 subtotal += float.Parse(data.GetValue(1).ToString());
             }
             total = subtotal - totaldiscount;
-            string query = string.Format("insert into Bill Values('{0}','{1}','{2}','{3}','{4}','{5}')", id, 8, totaldiscount, subtotal, total,  DateTime.Now);
+            string query = string.Format("insert into Bill Values('{0}','{1}','{2}','{3}','{4}','{5}')", id, LoginUser.staffId, totaldiscount, subtotal, total,  DateTime.Now);
             DataBaseConnection.getInstance().executeQuery(query);
             return RedirectToAction("AddSales");
         }

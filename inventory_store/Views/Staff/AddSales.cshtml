@@ -17,7 +17,7 @@
         Point Of Sale
     </div>
 </div>
-
+<div>@ViewBag.data</div>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -248,7 +248,7 @@
                                                 <div class="col-lg-12">
 
                                                     <button type="button" class="btn btn-success" @*style="background-color: #1E90FF; border-radius: 8px; padding: 8px;"*@
-                                                            onclick="location.href='@Url.Action("EditSale", new { id = item.InventoryId })'">
+                                                            onclick="location.href='@Url.Action("EditSale", new { id = item.SaleId })'">
                                                         <span class="glyphicon glyphicon-edit"></span>
                                                         Edit
                                                     </button>
