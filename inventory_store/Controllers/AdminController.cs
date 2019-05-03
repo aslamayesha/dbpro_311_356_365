@@ -8,12 +8,13 @@ using inventory_store.Models;
 using System.Data.SqlClient;
 using System.Net.Mail;
 using System.Net;
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace inventory_store.Controllers
 {
     public class AdminController : ApplicationBaseController //Controller
     {
-        public string constr = "Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True";
+        public string constr = "Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True";
         DataBaseConnection conD = DataBaseConnection.getInstance();
         // GET: Admin
         public ActionResult Home()
@@ -270,18 +271,59 @@ namespace inventory_store.Controllers
                 cmd.ExecuteNonQuery();
                 con.Close();
                 return RedirectToAction("Addsalary");
-
-
-
-
-
-
-
-
             }
             return View();
 
 
+        }
+        [HttpGet]
+        public ActionResult Report()
+        {
+            List<SelectListItem> item8 = new List<SelectListItem>();
+            item8.Add(new SelectListItem
+            {
+                Text = "Monthly salary Given to staff",
+                // Value = c.Id.ToString()
+                Value = "Monthly salary Given to staff"
+            });
+            ViewBag.ReportItem = item8;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Report(ReportCreation c)
+        {
+            if (c.select == "Monthly salary Given to staff")
+            {
+                ReportDocument rd = new ReportDocument();
+                SqlConnection con = new SqlConnection(constr);
+                con.Open();
+                SqlDataAdapter ada = new SqlDataAdapter("select Staff.Username,Staff.Contact,staff.Email,Staff.Address,Salary.SalaryAmount,Salary.Bonus from staff join Salary on Staff.Id=Salary.StaffId where MONTH(Salary.Month) = MONTH(GETDATE())", con);
+                DataSetSalry dat = new DataSetSalry();
+                DataTable T = new DataTable();
+                ada.Fill(T);
+                dat.Tables[0].Merge(T, true, MissingSchemaAction.Ignore);
+                rd.Load(System.IO.Path.Combine(Server.MapPath("~/Report"), "Salaryreposrt.rpt"));
+                rd.SetDataSource(dat);
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+                try
+                {
+                    System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                    stream.Seek(0, System.IO.SeekOrigin.Begin);
+                    return File(stream, "salary/pdf", "staff_salary.pdf");
+                }
+                catch
+                {
+                    return RedirectToAction("Report");
+                }
+                //MessageBox.Show(dat.Tables[0].Rows.Count.ToString());
+
+                /* rpt.Load(@"C:\Users\FINEC\Documents\Visual Studio 2015\Projects\databaseproject\databaseproject\CrystalReport1.rpt");
+                 rpt.SetDataSource(dat);
+                 crystalReportViewer1.ReportSource = rpt;*/
+            }
+            return View();
         }
     }
 }

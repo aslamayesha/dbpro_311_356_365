@@ -654,3 +654,19 @@ E:\Books\Semester 6\DB\New folder - Copy\inventory_store\bin\Microsoft.Owin.Secu
 E:\Books\Semester 6\DB\New folder - Copy\inventory_store\obj\Debug\inventory_store.csprojResolveAssemblyReference.cache
 E:\Books\Semester 6\DB\New folder - Copy\inventory_store\obj\Debug\inventory_store.dll
 E:\Books\Semester 6\DB\New folder - Copy\inventory_store\obj\Debug\inventory_store.pdb
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.ReportSource.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.Shared.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\FINEC\Desktop\dbpro_311_356_365\inventory_store\bin\stdole.dll
