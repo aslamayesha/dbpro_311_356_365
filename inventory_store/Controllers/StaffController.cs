@@ -12,12 +12,13 @@ namespace inventory_store.Controllers
 {
     public class StaffController : ApplicationBaseController //Controller
     {
-        public string constr = "Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True";
+        string constr = "Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True";
+        int prevSellQuantity=0,StaffId=0;
         List<string> allsearch;
         List<string> StateList;
-        int prevSellQuantity= 0;
+     
         CreatePOS pos;
-   //   int staffid = 0;
+      
         public StaffController()
         {
 
@@ -27,9 +28,10 @@ namespace inventory_store.Controllers
            pos = new CreatePOS();
         }
       //  CreatePOS pos;
-        public ActionResult Home()
+        public ActionResult Home(int StaffId)
         {
-         
+            StaffId = int.Parse(StaffId.ToString());
+           
             return View();
         }
         [HttpGet]
@@ -276,7 +278,7 @@ namespace inventory_store.Controllers
 
                 //SqlCommand cmd3 = new SqlCommand(query1, conn);
                 //cmd3.ExecuteNonQuery();
-                string qeury = "Insert into [Inventory] Values ((Select ID from [Medicine] where Medicine.Name='" + s.med.Name.ToString() + "' AND Medicine.Category='" + s.med.Category.ToString() + "') ,'" + Convert.ToInt32(s.inv.NumberofPacks) + "','" + Convert.ToInt32(s.inv.Quantity) + "','" + Convert.ToDateTime(s.inv.ManufactureDate) + "','" + Convert.ToDateTime(s.inv.ExpiryDate) + "')";
+                string qeury = "Insert into [Inventory] Values ((Select Id from [Medicine] where Medicine.Name='" + s.med.Name.ToString() + "' AND Medicine.Category='" + s.med.Category.ToString() + "') ,'" + Convert.ToInt32(s.inv.NumberofPacks) + "','" + Convert.ToInt32(s.inv.Quantity) + "','" + Convert.ToDateTime(s.inv.ManufactureDate) + "','" + Convert.ToDateTime(s.inv.ExpiryDate) + "')";
                 SqlCommand ss = new SqlCommand(qeury, conn);
                 ss.ExecuteNonQuery();
                 return RedirectToAction("Inventory");
@@ -354,7 +356,7 @@ namespace inventory_store.Controllers
                 SqlDataAdapter jj = new SqlDataAdapter();
                 jj.SelectCommand = cmd1;
                 jj.Fill(dt);
-                SqlDataAdapter sda1 = new SqlDataAdapter("  Select Inventory.Id, Inventory.MedicineId,Medicine.Name,Medicine.Category,Inventory.NumberofPacks,Inventory.Quantity,Inventory.ManufactureDate,Inventory.ExpiryDate FROM Medicine INNER JOIN Inventory ON Medicine.Id=Inventory.MedicineId", conn);
+                SqlDataAdapter sda1 = new SqlDataAdapter("Select Inventory.Id, Inventory.MedicineId,Medicine.Name,Medicine.Category,Inventory.NumberofPacks,Inventory.Quantity,Inventory.ManufactureDate,Inventory.ExpiryDate FROM Medicine INNER JOIN Inventory ON Medicine.Id=Inventory.MedicineId", conn);
 
                 // SqlDataAdapter sda1 = new SqlDataAdapter("Select * FROM Medicine INNER JOIN MedicineInventory ON Medicine.Id=MedicineInventory.MedicineId", conn);
                 DataTable TT = new DataTable();
@@ -417,15 +419,34 @@ namespace inventory_store.Controllers
 
         }
 
-
-        public ActionResult AddSales()
+        public int customerBillId()
         {
             CreatePOS pos = new CreatePOS();
-            string query = "select Sells.InventoryId,Medicine.Name,Medicine.Category,Medicine.Price,Sells.Quantity,Sells.Discount,Sells.Subtotal from Sells join Inventory on Inventory.Id=Sells.InventoryId join Medicine on Medicine.Id=Inventory.MedicineId";
+            int maxBillId = 1;
+            try
+            {
+                string queryId = string.Format("select max(OrderId) from Bill");
+                maxBillId = DataBaseConnection.getInstance().executeScalar(queryId) + 1;
+
+            }
+            catch
+            {
+
+            }
+            return maxBillId;
+
+        }
+        [HttpGet]
+        public ActionResult AddSales()
+        {
+
+            ViewBag.data = StaffId;
+                string query = "select Sells.InventoryId,Medicine.Name,Medicine.Category,Medicine.Price,Sells.Quantity,Sells.Discount,Sells.Subtotal from Sells join Inventory on Inventory.Id=Sells.InventoryId join Medicine on Medicine.Id=Inventory.MedicineId and Sells.Id='"+this.customerBillId()+"'";
             var data = DataBaseConnection.getInstance().readData(query);
             while (data.Read())
             {
                 Sales sale = new Sales();
+                sale.SaleId = this.customerBillId();
                 sale.InventoryId = (int)data.GetValue(0);
                 sale.Name = data.GetValue(1).ToString();
                 sale.Category = data.GetValue(2).ToString();
@@ -435,34 +456,30 @@ namespace inventory_store.Controllers
                 sale.Subtotal = float.Parse(data.GetValue(6).ToString());
                 pos.listSale.Add(sale);
             }
+            pos.sale.SaleId = this.customerBillId();
          return View(pos);
         }
 
         [HttpPost]
         public ActionResult AddSales(CreatePOS orderItem)
-        { int maxBillId = 1;
+        { 
             string queryinventory = string.Format("select top 1 Inventory.Id,Medicine.Price from Inventory join Medicine on Medicine.Id=Inventory.MedicineId and  Medicine.Name='{0}' and Medicine.Category='{1}'", orderItem.sale.Name, orderItem.sale.Category);
             var inventory = DataBaseConnection.getInstance().readData(queryinventory);
             inventory.Read();
             int inventoryId = (int)inventory.GetValue(0);
             int price= (int)inventory.GetValue(1);
-            try
-            {
-                string query = string.Format("select max(OrderId) from Bill");
-                maxBillId = DataBaseConnection.getInstance().executeScalar(query)+1;
-
-            }
-            catch
-            {
-              
-
-            }
+         
             float subtotal = float.Parse((orderItem.sale.Quantity*price).ToString());
-            string queryInsert = string.Format("insert into Sells values('{0}','{1}','{2}','{3}','{4}')", maxBillId,inventoryId, orderItem.sale.Quantity, orderItem.sale.Discount, subtotal);
+            string queryInsert = string.Format("insert into Sells values('{0}','{1}','{2}','{3}','{4}')", this.customerBillId(), inventoryId, orderItem.sale.Quantity, orderItem.sale.Discount, subtotal);
             DataBaseConnection.getInstance().executeQuery(queryInsert);
 
+            /////update inventory quantity////////////////
             string queryUpdateInventory = string.Format("update Inventory set Quantity=(select Quantity from Inventory where Id='{1}')-'{0}' where Id='{1}'", orderItem.sale.Quantity,inventoryId);
             DataBaseConnection.getInstance().executeQuery(queryUpdateInventory);
+
+            ////////upadet pack ///////////
+            string queryUpdatePack = string.Format("update Inventory set NumberofPacks=(Quantity/(select MedicinePerPack from MedicineInventory join Inventory on Inventory.MedicineId=MedicineInventory.MedicineId and Inventory.Id='{0}')) where Id='{0}'", inventoryId);
+            DataBaseConnection.getInstance().executeQuery(queryUpdatePack);
             //   string updateInventory=string.Format("update Inventory set Quantity='{0}'",)
             // string query=string.Format("insert into ")
 
@@ -473,13 +490,13 @@ namespace inventory_store.Controllers
 
         public ActionResult DeleteSale(int id)
         {
-            string queryUndoStock = string.Format("select InventoryId,Quantity from Sells where InventoryId='{0}'", id);
+            string queryUndoStock = string.Format("select InventoryId,Quantity from Sells where Id='{0}'", id);
             var data = DataBaseConnection.getInstance().readData(queryUndoStock);
             int InventoryId = 0, Quantity = 0;
             data.Read();
             InventoryId = (int)data.GetValue(0);
             Quantity = (int)data.GetValue(1);
-            string deleteQuery = string.Format("delete Sells where InventoryId='{0}'", id);
+            string deleteQuery = string.Format("delete Sells where Id='{0}'", id);
             DataBaseConnection.getInstance().executeQuery(deleteQuery);
             string updateStockQuery = string.Format("update Inventory set Quantity+='{0}' where Id='{1}'", Quantity, InventoryId);
             DataBaseConnection.getInstance().executeQuery(updateStockQuery);
@@ -496,7 +513,7 @@ namespace inventory_store.Controllers
             pos.sale.Name = editObject.GetValue(0).ToString();
             pos.sale.Category = editObject.GetValue(1).ToString();
             pos.sale.Quantity = (int)editObject.GetValue(2);
-            prevSellQuantity= (int)editObject.GetValue(2);
+            prevSellQuantity = (int)editObject.GetValue(2);
             string query = "select Sells.InventoryId,Medicine.Name,Medicine.Category,Medicine.Price,Sells.Quantity,Sells.Discount,Sells.Subtotal from Sells join Inventory on Inventory.Id=Sells.InventoryId join Medicine on Medicine.Id=Inventory.MedicineId";
             var data = DataBaseConnection.getInstance().readData(query);
             while (data.Read())
@@ -513,6 +530,7 @@ namespace inventory_store.Controllers
             }
    
             ViewBag.EditMode = "EditMode";
+            ViewBag.vl = prevSellQuantity;
          //   ViewBag.CategoryList = new SelectList(MedicineCategories, "Category", "Category");
             return View("AddSales",pos);
             //return View();
@@ -520,10 +538,10 @@ namespace inventory_store.Controllers
         [HttpPost]
         public ActionResult EditSale(int id,CreatePOS POS)
         {
-            int quantity = prevSellQuantity - POS.sale.Quantity;
-            string query = string.Format("update Inventory set Quantity+='{0}' where Id='{1}'", quantity, id);
+           // int quantity = prevSellQuantity;//POS.sale.Quantity;
+            string query = string.Format("update Inventory set Quantity=(select Quantity from Inventory where Id='{1}')+'{0}' where Id='{1}'", prevSellQuantity, id);
             DataBaseConnection.getInstance().executeQuery(query);
-            string querySell = string.Format("update Sells set Quantity='{0}' where InventoryId='{1}'", POS.sale.Quantity, id);
+            string querySell = string.Format("update Sells set Quantity='{0}',SubTotal=(select Medicine.Price from Medicine join Inventory on Inventory.MedicineId=Medicine.Id join Sells on Sells.InventoryId=Inventory.Id and  Sells.InventoryId='{1}')*'{0}' where InventoryId='{1}'", POS.sale.Quantity, id);
             DataBaseConnection.getInstance().executeQuery(querySell);
             return RedirectToAction("AddSales");
         }
@@ -566,7 +584,22 @@ namespace inventory_store.Controllers
 
         }
         
-          
+        public ActionResult CreateBill(int id)
+        {
+            string billdetailQuery = "select Discount,Subtotal from Sells where Id=(select max(Id) from Sells)";
+            var data = DataBaseConnection.getInstance().readData(billdetailQuery);
+            float totaldiscount=0,subtotal=0, total=0;
+            while (data.Read())
+            {
+                totaldiscount += float.Parse(data.GetValue(0).ToString());
+                subtotal += float.Parse(data.GetValue(1).ToString());
+            }
+            total = subtotal - totaldiscount;
+            string query = string.Format("insert into Bill Values('{0}','{1}','{2}','{3}','{4}','{5}')", id, 8, totaldiscount, subtotal, total,  DateTime.Now);
+            DataBaseConnection.getInstance().executeQuery(query);
+            return RedirectToAction("AddSales");
+        }
+
 
 
     }

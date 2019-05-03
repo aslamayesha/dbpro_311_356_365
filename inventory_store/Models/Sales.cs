@@ -8,8 +8,8 @@ namespace inventory_store.Models
 {
     public class Sales
     {
-        //[Required]
-        //public int SaleId { get; set; }
+        [Required]
+        public int SaleId { get; set; }
         [Required]
         public int InventoryId { get; set; }
         //[Required]

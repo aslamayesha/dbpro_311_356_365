@@ -6,6 +6,8 @@ using System.Data;
 using System.Web.Mvc;
 using inventory_store.Models;
 using System.Data.SqlClient;
+using System.Net.Mail;
+using System.Net;
 
 namespace inventory_store.Controllers
 {
@@ -53,24 +55,68 @@ namespace inventory_store.Controllers
             SqlConnection con = conD.getConnection();
             if (con.State == System.Data.ConnectionState.Open)
             {
+                try {
+                    string q = "Insert INTO [Staff] VALUES('" + s.staff.Username.ToString() + "','" + s.staff.Email.ToString() + "','" + s.staff.Contact.ToString() + "','" + s.staff.Address.ToString() + "')";
+                    SqlCommand cmd = new SqlCommand(q, con);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
 
-                string q = "Insert INTO [Staff] VALUES('" + s.staff.Username.ToString() + "','" + s.staff.Email.ToString() + "','" + s.staff.Contact.ToString() + "','" + s.staff.Address.ToString() + "')";
-                SqlCommand cmd = new SqlCommand(q, con);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                return RedirectToAction("Addstaff");
+                    ///////////////////Staff Login Account Functionality/////////////////
+                    string random = GetRandomString(5);
+                    SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                    client.EnableSsl = true;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential("risingpearls16@gmail.com", "risingPearls471912");
+                    MailMessage msg = new MailMessage();
+                    msg.To.Add(s.staff.Email);
+                    msg.From = new MailAddress("risingpearls16@gmail.com");
+                    msg.Subject = "Staff Added by Admin";
+                    msg.Body = "Your Username is :" + s.staff.Username + "password is : " + random;
+                    client.Send(msg);
 
+                    string loginQuery = "select max(Id) from Staff";
+                    int staffId = DataBaseConnection.getInstance().executeScalar(loginQuery);
 
+                    string query = string.Format("insert into Login(Id,Username,Email,Password,Role) values('{0}','{1}','{2}','{3}','{4}')", staffId, s.staff.Username, s.staff.Email, random, "Staff");
+                    DataBaseConnection.getInstance().executeQuery(query);
+                    ////////////////////////////////////////////////////////////////////////
+                    return RedirectToAction("Addstaff");
+                }
+                catch
+                {
+                    return View(s);
+                }
 
-
-
-
-
-
-            }
+ }
 
             return View();
         }
+        public string GetRandomString(int seed)
+        {
+            //use the following string to control your set of alphabetic characters to choose from
+            //for example, you could include uppercase too
+            const string alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+            // Random is not truly random,
+            // so we try to encourage better randomness by always changing the seed value
+            Random rnd = new Random((seed + DateTime.Now.Millisecond));
+            // basic 5 digit random number
+            string result = rnd.Next(10000, 99999).ToString();
+            // single random character in ascii range a-z
+            string alphaChar = alphabet.Substring(rnd.Next(0, alphabet.Length - 1), 1);
+            // random position to put the alpha character
+            int replacementIndex = rnd.Next(0, (result.Length - 1));
+            result = result.Remove(replacementIndex, 1).Insert(replacementIndex, alphaChar);
+            return result;
+        }
+
+        private char RandomNumber(int v1, int v2)
+        {
+            throw new NotImplementedException();
+        }
+
+
         [HttpPost]
         //httppost for edit
         public ActionResult Edit_staff(int? id, list_staff s)

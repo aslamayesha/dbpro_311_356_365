@@ -55,8 +55,8 @@ namespace inventory_store.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Home", "Staff");
-                        // return RedirectToAction("Home", "Staff", new { staffId = staffId });
+                        //return RedirectToAction("Home", "Staff");
+                         return RedirectToAction("Home", "Staff", new { staffId = staffId });
                     }
                 }
             }
@@ -124,7 +124,7 @@ namespace inventory_store.Controllers
                         MailMessage msg = new MailMessage();
                         msg.To.Add(model.Email);
                         msg.From = new MailAddress("risingpearls16@gmail.com");
-                        msg.Subject = "Staff added by admin";
+                        msg.Subject = "Password Recovery";
                         msg.Body = "Your New password is : " + random;
                         client.Send(msg);
 
