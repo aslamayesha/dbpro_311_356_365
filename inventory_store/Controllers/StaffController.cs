@@ -14,7 +14,7 @@ namespace inventory_store.Controllers
 {
     public class StaffController : ApplicationBaseController //Controller
     {
-        string constr = "Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True";
+        string constr = "Data Source=FINE\\AYESHASLAM;Initial Catalog = DB1; Integrated Security = True";
         int prevSellQuantity=0,StaffId=0;
         List<string> allsearch = new List<string>();
         List<string> StateList = new List<string>();
@@ -630,7 +630,7 @@ namespace inventory_store.Controllers
                 DataTable T = new DataTable();
                 ada.Fill(T);
                 dat.Tables[0].Merge(T, true, MissingSchemaAction.Ignore);
-                rd.Load(System.IO.Path.Combine(Server.MapPath("~/Report"), "Salaryreposrt.rpt"));
+                rd.Load(System.IO.Path.Combine(Server.MapPath("~/Report"), "reportexpired.rpt"));
                 rd.SetDataSource(dat);
                 Response.Buffer = false;
                 Response.ClearContent();
@@ -639,7 +639,7 @@ namespace inventory_store.Controllers
                 {
                     System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
                     stream.Seek(0, System.IO.SeekOrigin.Begin);
-                    return File(stream, "salary/pdf", "staff_salary.pdf");
+                    return File(stream, "products/pdf", "Expired_Products.pdf");
                 }
                 catch
                 {
