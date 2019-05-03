@@ -9,7 +9,7 @@ namespace inventory_store.Models
     public class DataBaseConnection
     {
         private SqlConnection connection;
-        public string conStr;
+        public string conStr= "Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True";
         private static DataBaseConnection instance = null;
         private DataBaseConnection()
         {

@@ -37,8 +37,6 @@ namespace inventory_store.Controllers
                 foreach (DataRow dr in TT.Rows)  // dt is a DataTable
                 {
                     f.list.Add(new Addstaff { Id = Convert.ToInt32(dr["Id"]), Username = dr["Username"].ToString(), Email = dr["Email"].ToString(), Contact = dr["Contact"].ToString(), Address = dr["Address"].ToString() });
-
-
                 }
                 con.Close();
                 return View(f);
@@ -57,6 +55,25 @@ namespace inventory_store.Controllers
             if (con.State == System.Data.ConnectionState.Open)
             {
                 try {
+                    SqlDataAdapter sda1 = new SqlDataAdapter("Select * From Staff", con);
+                    DataTable TT = new DataTable();
+                    sda1.Fill(TT);
+                    foreach (DataRow dr in TT.Rows)  // dt is a DataTable
+                    {
+                        s.list.Add(new Addstaff { Id = Convert.ToInt32(dr["Id"]), Username = dr["Username"].ToString(), Email = dr["Email"].ToString(), Contact = dr["Contact"].ToString(), Address = dr["Address"].ToString() });
+                    }
+                    foreach (DataRow dr in TT.Rows)  // dt is a DataTable
+                    {
+                        if (dr["Email"].ToString() == s.staff.Email)
+                        {
+                            
+                            ViewBag.Errormessage = "Email Already Exists";
+                            
+                            return View(s);
+
+                        }
+                        
+                    }
                     string q = "Insert INTO [Staff] VALUES('" + s.staff.Username.ToString() + "','" + s.staff.Email.ToString() + "','" + s.staff.Contact.ToString() + "','" + s.staff.Address.ToString() + "')";
                     SqlCommand cmd = new SqlCommand(q, con);
                     cmd.ExecuteNonQuery();
@@ -81,6 +98,7 @@ namespace inventory_store.Controllers
 
                     string query = string.Format("insert into Login(Id,Username,Email,Password,Role) values('{0}','{1}','{2}','{3}','{4}')", staffId, s.staff.Username, s.staff.Email, random, "Staff");
                     DataBaseConnection.getInstance().executeQuery(query);
+
                     ////////////////////////////////////////////////////////////////////////
                     return RedirectToAction("Addstaff");
                 }
