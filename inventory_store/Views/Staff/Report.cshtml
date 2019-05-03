@@ -1,0 +1,50 @@
+﻿@model inventory_store.Models.reportstaff
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+}
+
+
+<div class="panel panel-default" style="box-shadow:2px 2px 5px grey">
+    <div class="panel-heading">
+        <span class="glyphicon glyphicon-plus-sign">
+
+        </span>
+        Report
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Report</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.select, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.select, (IEnumerable<SelectListItem>)ViewBag.ReportItem, "Select Report", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.select, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Generate" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

@@ -205,6 +205,11 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\UserAccountController.cs" />
+    <Compile Include="DataSetExpiry.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetExpiry.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSetSalry.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -227,6 +232,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Medicine.cs" />
     <Compile Include="Models\ReportCreation.cs" />
+    <Compile Include="Models\reportstaff.cs" />
     <Compile Include="Models\Salary.cs" />
     <Compile Include="Models\Sales.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -261,6 +267,17 @@
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="DataSetSalry.xsc">
       <DependentUpon>DataSetSalry.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSetExpiry.xsc">
+      <DependentUpon>DataSetExpiry.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSetExpiry.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetExpiry.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DataSetExpiry.xss">
+      <DependentUpon>DataSetExpiry.xsd</DependentUpon>
     </Content>
     <None Include="DataSetSalry.xsd">
       <SubType>Designer</SubType>
@@ -332,6 +349,7 @@
     <Content Include="Views\Staff\AddSales.cshtml" />
     <Content Include="Views\Admin\customer_detail.cshtml" />
     <Content Include="Views\Admin\Report.cshtml" />
+    <Content Include="Views\Staff\Report.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

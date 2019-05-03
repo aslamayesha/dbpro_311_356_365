@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using inventory_store.Models;
 using System.Data.SqlClient;
 using System.Data;
+using System.Net;
+using CrystalDecisions.CrystalReports.Engine;
 
 
 namespace inventory_store.Controllers
@@ -598,6 +600,58 @@ namespace inventory_store.Controllers
             string query = string.Format("insert into Bill Values('{0}','{1}','{2}','{3}','{4}','{5}')", id, LoginUser.staffId, totaldiscount, subtotal, total,  DateTime.Now);
             DataBaseConnection.getInstance().executeQuery(query);
             return RedirectToAction("AddSales");
+        }
+        [HttpGet]
+        public ActionResult Report()
+        {
+            List<SelectListItem> item8 = new List<SelectListItem>();
+            item8.Add(new SelectListItem
+            {
+                Text = "Expired Products",
+                // Value = c.Id.ToString()
+                Value = "Expired Products"
+            });
+            ViewBag.ReportItem = item8;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Report(reportstaff c)
+        {
+            if (c.select == "Expired Products")
+            {
+                ReportDocument rd = new ReportDocument();
+                SqlConnection con = new SqlConnection(constr);
+                con.Open();
+                SqlDataAdapter ada = new SqlDataAdapter("SELECT Inventory.MedicineId, Medicine.Name, Medicine.Category, Medicine.Formula, Inventory.ExpiryDate FROM  Medicine JOIN Inventory ON Medicine.Id = Inventory.MedicineId WHERE ExpiryDate < (SELECT GETDATE())", con);
+
+
+              
+                DataSetExpiry dat = new DataSetExpiry();
+                DataTable T = new DataTable();
+                ada.Fill(T);
+                dat.Tables[0].Merge(T, true, MissingSchemaAction.Ignore);
+                rd.Load(System.IO.Path.Combine(Server.MapPath("~/Report"), "Salaryreposrt.rpt"));
+                rd.SetDataSource(dat);
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+                try
+                {
+                    System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                    stream.Seek(0, System.IO.SeekOrigin.Begin);
+                    return File(stream, "salary/pdf", "staff_salary.pdf");
+                }
+                catch
+                {
+                    return RedirectToAction("Report");
+                }
+                //MessageBox.Show(dat.Tables[0].Rows.Count.ToString());
+
+                /* rpt.Load(@"C:\Users\FINEC\Documents\Visual Studio 2015\Projects\databaseproject\databaseproject\CrystalReport1.rpt");
+                 rpt.SetDataSource(dat);
+                 crystalReportViewer1.ReportSource = rpt;*/
+            }
+            return View();
         }
 
 
