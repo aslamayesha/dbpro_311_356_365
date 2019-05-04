@@ -51,6 +51,7 @@ namespace inventory_store.Controllers
         [HttpPost]
         public ActionResult Addstaff(list_staff s)
         {
+            ViewBag.Errormessage = "";
             SqlConnection con = conD.getConnection();
             if (con.State == System.Data.ConnectionState.Open)
             {
@@ -67,9 +68,9 @@ namespace inventory_store.Controllers
                         if (dr["Email"].ToString() == s.staff.Email)
                         {
                             
-                            ViewBag.Errormessage = "Email Already Exists";
-                            
-                            return View(s);
+                            ViewBag.ErrorMessage = "Email Already Exists";
+                            return View("Addstaff", s);
+
 
                         }
                         
@@ -187,7 +188,7 @@ namespace inventory_store.Controllers
 
                 }
             }
-            return View("Addstaff", f);
+            return RedirectToAction("Addstaff");
 
         }
         public ActionResult Edit_staff(int? id)
@@ -274,6 +275,38 @@ namespace inventory_store.Controllers
             {
                 return View();
             }
+
+        }
+        public ActionResult Edit_salary(int? id)
+        {
+            List_salary f = new List_salary();
+            Salary ss = new Salary();
+            SqlConnection con = conD.getConnection();
+            if (con.State == System.Data.ConnectionState.Open)
+            {
+                SqlDataAdapter sda1 = new SqlDataAdapter("Select * From Salary", con);
+                DataTable TT = new DataTable();
+                sda1.Fill(TT);
+                foreach (DataRow dr in TT.Rows)  // dt is a DataTable
+                {
+                    f.list.Add(new Salary { med_id = Convert.ToInt32(dr["StaffId"]), SalaryAmount = Convert.ToInt32(dr["SalaryAmount"]), bonus = Convert.ToInt32(dr["Bonus"]), Month = Convert.ToDateTime(dr["Month"]) });
+                    if (id == Convert.ToInt32(dr["Id"]))
+                    {
+                        ss.med_id = Convert.ToInt32(dr["StaffId"]);
+                        ss.SalaryAmount = Convert.ToInt32(dr["SalaryAmount"]);
+                        ss.bonus = Convert.ToInt32(dr["Bonus"]);
+                        ss.Month = Convert.ToDateTime(dr["Month"]);
+
+
+                    }
+
+
+                }
+                f.s = ss;
+
+            }
+            return View("Addsalary", f);
+
 
         }
 

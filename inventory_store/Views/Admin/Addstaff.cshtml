@@ -3,6 +3,7 @@
 @{
 
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    @Scripts.Render("~/bundles/jqueryval")
 }
 <div class="panel panel-default" style="box-shadow:2px 2px 5px grey">
     <div class="panel-heading">
@@ -15,9 +16,15 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+   if (ViewBag.ErrorMessage != null)
+   {
+    <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.ErrorMessage");
+            };
+    </script>
+   }
     <div class="form-horizontal">
-
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -203,6 +210,12 @@
             </div>
         </div>
     </div>
+    		<!-- JS includes -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+        <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+        <script src="//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
 
 }
 

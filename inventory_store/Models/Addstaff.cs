@@ -41,14 +41,15 @@ namespace inventory_store.Models
         [StringLength(50, ErrorMessage = "Name length can't be more than 50.")]
         public  string Username { get; set; }
         [Required]
-        [StringLength(50, ErrorMessage = "Name length can't be more than 50.")]
+        [StringLength(50, ErrorMessage = "Email length can't be more than 50.")]
         [UniqueEmail(ErrorMessage ="email already exists")]
-       public string Email { get; set; }
-        [StringLength(50, ErrorMessage = "Name length can't be more than 50.")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "incorrect Email")]
+        public string Email { get; set; }
         [Required]
-        [DataType(DataType.PhoneNumber)]
+        [StringLength(11, ErrorMessage = "Name length can't be more than 50.")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "UPRN must be numeric")]
         public  string Contact { get; set; }
-        [StringLength(50, ErrorMessage = "Name length can't be more than 50.")]
+        [StringLength(50, ErrorMessage = "Address length can't be more than 50.")]
         [Required]
         public  string Address { get; set; }
     }
