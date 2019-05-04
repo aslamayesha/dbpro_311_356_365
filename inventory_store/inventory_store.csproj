@@ -205,6 +205,11 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\UserAccountController.cs" />
+    <Compile Include="DataSetDailySale.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetDailySale.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSetExpiry.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -231,11 +236,18 @@
     <Compile Include="Models\LoginUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Medicine.cs" />
+    <Compile Include="Models\PreviousSale.cs" />
     <Compile Include="Models\ReportCreation.cs" />
     <Compile Include="Models\reportstaff.cs" />
     <Compile Include="Models\Salary.cs" />
     <Compile Include="Models\Sales.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\DailySalesReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DailySalesReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\reportexpired.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -277,6 +289,17 @@
     <Content Include="DataSetExpiry.xsc">
       <DependentUpon>DataSetExpiry.xsd</DependentUpon>
     </Content>
+    <Content Include="DataSetDailySale.xsc">
+      <DependentUpon>DataSetDailySale.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSetDailySale.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetDailySale.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DataSetDailySale.xss">
+      <DependentUpon>DataSetDailySale.xsd</DependentUpon>
+    </Content>
     <None Include="DataSetExpiry.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -288,7 +311,6 @@
     <None Include="DataSetSalry.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetSalry.Designer.cs</LastGenOutput>
     </None>
     <Content Include="DataSetSalry.xss">
       <DependentUpon>DataSetSalry.xsd</DependentUpon>
@@ -378,6 +400,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Report\DailySalesReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DailySalesReport.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\reportexpired.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>reportexpired.cs</LastGenOutput>

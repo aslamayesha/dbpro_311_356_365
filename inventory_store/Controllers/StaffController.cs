@@ -14,7 +14,7 @@ namespace inventory_store.Controllers
 {
     public class StaffController : ApplicationBaseController //Controller
     {
-        string constr = "Data Source=FINE\\AYESHASLAM;Initial Catalog = DB1; Integrated Security = True";
+        string constr = "Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True";
         int prevSellQuantity=0,StaffId=0;
         List<string> allsearch = new List<string>();
         List<string> StateList = new List<string>();
@@ -490,37 +490,38 @@ namespace inventory_store.Controllers
         //     return View(pos);
         }
 
-        public ActionResult DeleteSale(int id)
+        public ActionResult DeleteSale(int id, int inventoryId)
         {
-            string queryUndoStock = string.Format("select InventoryId,Quantity from Sells where Id='{0}'", id);
-            var data = DataBaseConnection.getInstance().readData(queryUndoStock);
-            int InventoryId = 0, Quantity = 0;
-            data.Read();
-            InventoryId = (int)data.GetValue(0);
-            Quantity = (int)data.GetValue(1);
-            string deleteQuery = string.Format("delete Sells where Id='{0}'", id);
+            string queryUndoStock = string.Format("select Quantity from Sells where Id='{0}' and InventoryId='{1}'", id, inventoryId);
+            var data = DataBaseConnection.getInstance().executeScalar(queryUndoStock);
+            int Quantity = 0;
+
+
+            Quantity = int.Parse(data.ToString());
+            string deleteQuery = string.Format("delete Sells where Id='{0}' and InventoryId='{1}'", id, inventoryId);
             DataBaseConnection.getInstance().executeQuery(deleteQuery);
-            string updateStockQuery = string.Format("update Inventory set Quantity+='{0}' where Id='{1}'", Quantity, InventoryId);
+            string updateStockQuery = string.Format("update Inventory set Quantity+='{0}' where Id='{1}'", Quantity, inventoryId);
             DataBaseConnection.getInstance().executeQuery(updateStockQuery);
             return RedirectToAction("AddSales");
             //return View();
         }
-        public ActionResult EditSale(int id)
+        public ActionResult EditSale(int id, int inventoryId)
         {
 
             CreatePOS pos = new CreatePOS();
-            string queryObject = "select Medicine.Name,Medicine.Category,Sells.Quantity from Sells join Inventory on Inventory.Id=Sells.InventoryId join Medicine on Medicine.Id=Inventory.MedicineId and Sells.InventorId='"+id+"'";
+            string queryObject = "select Medicine.Name,Medicine.Category,Sells.Quantity from Sells join Inventory on Inventory.Id=Sells.InventoryId join Medicine on Medicine.Id=Inventory.MedicineId and Sells.Id='" + id + "' and Sells.InventoryId='" + inventoryId + "'";
             var editObject = DataBaseConnection.getInstance().readData(queryObject);
             editObject.Read();
             pos.sale.Name = editObject.GetValue(0).ToString();
             pos.sale.Category = editObject.GetValue(1).ToString();
             pos.sale.Quantity = (int)editObject.GetValue(2);
-            prevSellQuantity = (int)editObject.GetValue(2);
-            string query = "select Sells.InventoryId,Medicine.Name,Medicine.Category,Medicine.Price,Sells.Quantity,Sells.Discount,Sells.Subtotal from Sells join Inventory on Inventory.Id=Sells.InventoryId join Medicine on Medicine.Id=Inventory.MedicineId";
+            PreviousSale.quantity = (int)editObject.GetValue(2);
+            string query = "select Sells.InventoryId,Medicine.Name,Medicine.Category,Medicine.Price,Sells.Quantity,Sells.Discount,Sells.Subtotal from Sells join Inventory on Inventory.Id=Sells.InventoryId join Medicine on Medicine.Id=Inventory.MedicineId and Sells.Id='" + id + "'";
             var data = DataBaseConnection.getInstance().readData(query);
             while (data.Read())
             {
                 Sales sale = new Sales();
+                sale.SaleId = id;
                 sale.InventoryId = (int)data.GetValue(0);
                 sale.Name = data.GetValue(1).ToString();
                 sale.Category = data.GetValue(2).ToString();
@@ -530,20 +531,20 @@ namespace inventory_store.Controllers
                 sale.Subtotal = float.Parse(data.GetValue(6).ToString());
                 pos.listSale.Add(sale);
             }
-   
+
             ViewBag.EditMode = "EditMode";
             ViewBag.vl = prevSellQuantity;
-         //   ViewBag.CategoryList = new SelectList(MedicineCategories, "Category", "Category");
-            return View("AddSales",pos);
+            //   ViewBag.CategoryList = new SelectList(MedicineCategories, "Category", "Category");
+            return View("AddSales", pos);
             //return View();
         }
         [HttpPost]
-        public ActionResult EditSale(int id,CreatePOS POS)
+        public ActionResult EditSale(int id, int inventoryId, CreatePOS POS)
         {
-           // int quantity = prevSellQuantity;//POS.sale.Quantity;
-            string query = string.Format("update Inventory set Quantity=(select Quantity from Inventory where Id='{1}')+'{0}' where Id='{1}'", prevSellQuantity, id);
+            int quantity = PreviousSale.quantity - POS.sale.Quantity;
+            string query = string.Format("update Inventory set Quantity=(select Quantity from Inventory where Id='{1}')+'{0}' where Id='{1}'", quantity, inventoryId);
             DataBaseConnection.getInstance().executeQuery(query);
-            string querySell = string.Format("update Sells set Quantity='{0}',SubTotal=(select Medicine.Price from Medicine join Inventory on Inventory.MedicineId=Medicine.Id join Sells on Sells.InventoryId=Inventory.Id and  Sells.InventoryId='{1}')*'{0}' where InventoryId='{1}'", POS.sale.Quantity, id);
+            string querySell = string.Format("update Sells set Quantity='{0}',SubTotal=(select top 1 Medicine.Price from Medicine join Inventory on Inventory.MedicineId=Medicine.Id join Sells on Sells.InventoryId=Inventory.Id and  Sells.InventoryId='{1}')*'{0}' where InventoryId='{1}' and Id='{2}'", POS.sale.Quantity, inventoryId, id);
             DataBaseConnection.getInstance().executeQuery(querySell);
             return RedirectToAction("AddSales");
         }
@@ -611,6 +612,12 @@ namespace inventory_store.Controllers
                 // Value = c.Id.ToString()
                 Value = "Expired Products"
             });
+            item8.Add(new SelectListItem
+            {
+                Text = "Daily Sale",
+                // Value = c.Id.ToString()
+                Value = "Daily Sale"
+            });
             ViewBag.ReportItem = item8;
             return View();
         }
@@ -650,6 +657,37 @@ namespace inventory_store.Controllers
                 /* rpt.Load(@"C:\Users\FINEC\Documents\Visual Studio 2015\Projects\databaseproject\databaseproject\CrystalReport1.rpt");
                  rpt.SetDataSource(dat);
                  crystalReportViewer1.ReportSource = rpt;*/
+            }
+            else if(c.select== "Daily Sale")
+            {
+                ReportDocument rd = new ReportDocument();
+                SqlConnection con = new SqlConnection(constr);
+                con.Open();
+                SqlDataAdapter ada = new SqlDataAdapter("select CONVERT(VARCHAR(10), billdate, 111) as BillDate, sum(Total) as TotalSale from Bill group by CONVERT(VARCHAR(10), billdate, 111)", con);
+
+
+
+                DataSetDailySale dat = new DataSetDailySale();
+                DataTable T = new DataTable();
+                ada.Fill(T);
+                dat.Tables[0].Merge(T, true, MissingSchemaAction.Ignore);
+                rd.Load(System.IO.Path.Combine(Server.MapPath("~/Report"), "DailySalesReport.rpt"));
+                rd.SetDataSource(dat);
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+                try
+                {
+                    System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                    stream.Seek(0, System.IO.SeekOrigin.Begin);
+                    return File(stream, "sales/pdf", "Daily_Sale.pdf");
+                }
+                catch
+                {
+                    return RedirectToAction("Report");
+                }
+
+
             }
             return View();
         }

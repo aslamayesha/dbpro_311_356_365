@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSetDailySale" targetNamespace="http://tempuri.org/DataSetDailySale.xsd" xmlns:mstns="http://tempuri.org/DataSetDailySale.xsd" xmlns="http://tempuri.org/DataSetDailySale.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="DB1ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="DB1ConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.DB1ConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSetDailySale" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSetDailySale" msprop:Generator_UserDSName="DataSetDailySale">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTableDailySale" msprop:Generator_TableClassName="DataTableDailySaleDataTable" msprop:Generator_TableVarName="tableDataTableDailySale" msprop:Generator_RowChangedName="DataTableDailySaleRowChanged" msprop:Generator_TablePropName="DataTableDailySale" msprop:Generator_RowDeletingName="DataTableDailySaleRowDeleting" msprop:Generator_RowChangingName="DataTableDailySaleRowChanging" msprop:Generator_RowEvHandlerName="DataTableDailySaleRowChangeEventHandler" msprop:Generator_RowDeletedName="DataTableDailySaleRowDeleted" msprop:Generator_RowClassName="DataTableDailySaleRow" msprop:Generator_UserTableName="DataTableDailySale" msprop:Generator_RowEvArgName="DataTableDailySaleRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BillDate" msprop:Generator_ColumnVarNameInTable="columnBillDate" msprop:Generator_ColumnPropNameInRow="BillDate" msprop:Generator_ColumnPropNameInTable="BillDateColumn" msprop:Generator_UserColumnName="BillDate" type="xs:string" minOccurs="0" />
+              <xs:element name="TotalSale" msprop:Generator_ColumnVarNameInTable="columnTotalSale" msprop:Generator_ColumnPropNameInRow="TotalSale" msprop:Generator_ColumnPropNameInTable="TotalSaleColumn" msprop:Generator_UserColumnName="TotalSale" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

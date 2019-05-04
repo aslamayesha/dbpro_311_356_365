@@ -14,7 +14,7 @@ namespace inventory_store.Controllers
 {
     public class AdminController : ApplicationBaseController //Controller
     {
-        public string constr = "Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True";
+        public string constr = "Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True";
         DataBaseConnection conD = DataBaseConnection.getInstance();
         // GET: Admin
         public ActionResult Home()

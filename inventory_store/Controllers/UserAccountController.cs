@@ -13,7 +13,7 @@ namespace inventory_store.Controllers
         // GET: UserAccount
         public UserAccountController()
         {
-            DataBaseConnection.getInstance().conStr = "Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True";
+            DataBaseConnection.getInstance().conStr = "Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True";
             DataBaseConnection.getInstance().getConnection();
         }
 

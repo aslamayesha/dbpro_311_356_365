@@ -248,7 +248,7 @@
                                                 <div class="col-lg-12">
 
                                                     <button type="button" class="btn btn-success" @*style="background-color: #1E90FF; border-radius: 8px; padding: 8px;"*@
-                                                            onclick="location.href='@Url.Action("EditSale", new { id = item.SaleId })'">
+                                                            onclick="location.href='@Url.Action("EditSale", new { id = item.SaleId,inventoryId=item.InventoryId })'">
                                                         <span class="glyphicon glyphicon-edit"></span>
                                                         Edit
                                                     </button>
@@ -257,7 +257,7 @@
                                                 <div class="col-lg-12" style="margin-top:5px">
 
                                                     <button type="button" class="btn btn-danger" @*style="background-color: #1E90FF; border-radius: 8px; padding: 8px;"*@
-                                                            onclick="location.href='@Url.Action("DeleteSale", new { id = item.SaleId })'">
+                                                            onclick="location.href='@Url.Action("DeleteSale", new { id = item.SaleId,inventoryId=item.InventoryId })'">
                                                         <span class="glyphicon glyphicon-trash"></span>
                                                         Delete
                                                     </button>
