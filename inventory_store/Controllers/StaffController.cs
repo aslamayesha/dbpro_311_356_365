@@ -14,7 +14,7 @@ namespace inventory_store.Controllers
 {
     public class StaffController : ApplicationBaseController //Controller
     {
-        string constr = "Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True";
+        string constr = "Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True";
         int prevSellQuantity=0,StaffId=0;
         List<string> allsearch = new List<string>();
         List<string> StateList = new List<string>();
@@ -42,7 +42,7 @@ namespace inventory_store.Controllers
         {
 
             list_medicine k = new list_medicine();
-            SqlConnection conn = new SqlConnection("Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True");
+            SqlConnection conn = new SqlConnection("Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True");
 
             conn.Open();
             DataTable ds = new DataTable();
@@ -90,7 +90,7 @@ namespace inventory_store.Controllers
         public ActionResult delete_medicine(int? id)
         {
             list_medicine k = new list_medicine();
-            SqlConnection conn = new SqlConnection("Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True");
+            SqlConnection conn = new SqlConnection("Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True");
 
             conn.Open();
             DataTable ds = new DataTable();
@@ -138,7 +138,7 @@ namespace inventory_store.Controllers
         {
             list_medicine k = new list_medicine();
             Medicine m = new Medicine();
-            SqlConnection conn = new SqlConnection("Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True");
+            SqlConnection conn = new SqlConnection("Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True");
 
             conn.Open();
             DataTable ds = new DataTable();
@@ -208,7 +208,7 @@ namespace inventory_store.Controllers
         {
             List<string> name = new List<string>();
             list_inventory k = new list_inventory();
-            SqlConnection conn = new SqlConnection("Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True");
+            SqlConnection conn = new SqlConnection("Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True");
 
             conn.Open();
             DataTable ds = new DataTable();
@@ -291,7 +291,7 @@ namespace inventory_store.Controllers
         public ActionResult Delete_inventory(int? id)
         {
             list_inventory k = new list_inventory();
-            SqlConnection conn = new SqlConnection("Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True");
+            SqlConnection conn = new SqlConnection("Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True");
 
             conn.Open();
             DataTable ds = new DataTable();
@@ -346,7 +346,7 @@ namespace inventory_store.Controllers
         {
             list_inventory k = new list_inventory();
             Inventory m = new Inventory();
-            SqlConnection conn = new SqlConnection("Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True");
+            SqlConnection conn = new SqlConnection("Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True");
 
             conn.Open();
             DataTable ds = new DataTable();
@@ -700,14 +700,16 @@ namespace inventory_store.Controllers
                 ReportDocument rd = new ReportDocument();
                 SqlConnection con = new SqlConnection(constr);
                 con.Open();
-                SqlDataAdapter ada = new SqlDataAdapter("SELECT Medicine.Id,Medicine.Name,Inventory.Quantity,MedicineInventory.ThresholdQuantity FROM Medicine JOIN Inventory  ON Medicine.Id = Inventory.MedicineId JOIN MedicineInventory ON MedicineInventory.MedicineId = Inventory.MedicineId where Inventory.Quantity < MedicineInventory.ThresholdQuantity)", con);
+                string q = "SELECT Medicine.Name,Inventory.Quantity,MedicineInventory.ThresholdQuantity FROM Medicine JOIN Inventory  ON Medicine.Id = Inventory.MedicineId JOIN MedicineInventory ON MedicineInventory.MedicineId = Inventory.MedicineId where Inventory.Quantity < MedicineInventory.ThresholdQuantity";
+                SqlCommand cmd = new SqlCommand(q, con);
+                SqlDataAdapter ada = new SqlDataAdapter(cmd);
 
 
 
              StockoutDataset dat = new  StockoutDataset();
-                DataTable T = new DataTable();
-                ada.Fill(T);
-                dat.Tables[0].Merge(T, true, MissingSchemaAction.Ignore);
+                DataTable TT = new DataTable();
+                ada.Fill(TT);
+                dat.Tables[0].Merge(TT, true, MissingSchemaAction.Ignore);
                 rd.Load(System.IO.Path.Combine(Server.MapPath("~/Report"), "StockoutMedicine.rpt"));
                 rd.SetDataSource(dat);
                 Response.Buffer = false;

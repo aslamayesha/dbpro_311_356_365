@@ -14,7 +14,7 @@ namespace inventory_store.Controllers
 {
     public class AdminController : ApplicationBaseController //Controller
     {
-        public string constr = "Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True";
+        public string constr = "Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True";
         DataBaseConnection conD = DataBaseConnection.getInstance();
         // GET: Admin
         public ActionResult Home()
@@ -277,6 +277,7 @@ namespace inventory_store.Controllers
             }
 
         }
+        [HttpGet]
         public ActionResult Edit_salary(int? id)
         {
             List_salary f = new List_salary();
@@ -284,13 +285,13 @@ namespace inventory_store.Controllers
             SqlConnection con = conD.getConnection();
             if (con.State == System.Data.ConnectionState.Open)
             {
-                SqlDataAdapter sda1 = new SqlDataAdapter("Select * From Salary", con);
+                SqlDataAdapter sda1 = new SqlDataAdapter("Select * From Salary where Salary.StaffId= '" + id + "' ", con);
                 DataTable TT = new DataTable();
                 sda1.Fill(TT);
                 foreach (DataRow dr in TT.Rows)  // dt is a DataTable
                 {
                     f.list.Add(new Salary { med_id = Convert.ToInt32(dr["StaffId"]), SalaryAmount = Convert.ToInt32(dr["SalaryAmount"]), bonus = Convert.ToInt32(dr["Bonus"]), Month = Convert.ToDateTime(dr["Month"]) });
-                    if (id == Convert.ToInt32(dr["Id"]))
+                    if (id == Convert.ToInt32(dr["StaffId"]))
                     {
                         ss.med_id = Convert.ToInt32(dr["StaffId"]);
                         ss.SalaryAmount = Convert.ToInt32(dr["SalaryAmount"]);
@@ -307,6 +308,43 @@ namespace inventory_store.Controllers
             }
             return View("Addsalary", f);
 
+
+        }
+        [HttpPost]
+        public ActionResult Edit_salary(int? id, List_salary ss)
+        {
+            SqlConnection con = conD.getConnection();
+            if (con.State == System.Data.ConnectionState.Open)
+            {
+
+                string q = "UPDATE [Salary] SET  Salary.SalaryAmount='" + Convert.ToInt32(ss.s.SalaryAmount) + "',Salary.Bonus='" + Convert.ToInt32(ss.s.bonus) + "',Salary.Month='" + Convert.ToDateTime(ss.s.Month) + "' where Salary.StaffId='" + Convert.ToInt32(id) + "'";
+                SqlCommand cmd = new SqlCommand(q, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+                return RedirectToAction("Addsalary", new { id = id });
+
+
+
+            }
+            return RedirectToAction("Addsalary", id);
+        }
+        [HttpGet]
+        public ActionResult Delete_salary(int? id)
+        {
+            List_salary f = new List_salary();
+            SqlConnection con = conD.getConnection();
+            if (con.State == System.Data.ConnectionState.Open)
+            {
+
+
+                string q = "Delete From Salary where Salary.StaffId='" + id + "'";
+                SqlCommand cmd = new SqlCommand(q, con);
+                cmd.ExecuteNonQuery();
+
+
+            }
+            return RedirectToAction("Addstaff", new { id = id });
 
         }
 
@@ -337,6 +375,12 @@ namespace inventory_store.Controllers
                 // Value = c.Id.ToString()
                 Value = "Monthly salary Given to staff"
             });
+            item8.Add(new SelectListItem
+            {
+                Text = "yearly Report of salary",
+                // Value = c.Id.ToString()
+                Value = "yearly Report of salary"
+            });
             ViewBag.ReportItem = item8;
             return View();
         }
@@ -363,6 +407,33 @@ namespace inventory_store.Controllers
                     System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
                     stream.Seek(0, System.IO.SeekOrigin.Begin);
                     return File(stream, "salary/pdf", "staff_salary.pdf");
+                }
+                catch
+                {
+                    return RedirectToAction("Report");
+                }
+            }
+            else if (c.select == "yearly Report of salary")
+            {
+
+                ReportDocument rd = new ReportDocument();
+                SqlConnection con = new SqlConnection(constr);
+                con.Open();
+                SqlDataAdapter ada = new SqlDataAdapter("select staff.Username,Salary.SalaryAmount,Salary.Bonus,Salary.[Month],Year(Salary.[Month]) as [Year]from Staff join Salary on Staff.Id=Salary.StaffId group by YEAR(Salary.[Month]),Staff.Username,Salary.SalaryAmount,Salary.Bonus,Salary.Month", con);
+                yearlydata dat = new yearlydata();
+                DataTable T = new DataTable();
+                ada.Fill(T);
+                dat.Tables[0].Merge(T, true, MissingSchemaAction.Ignore);
+                rd.Load(System.IO.Path.Combine(Server.MapPath("~/Report"), "yearlyReport.rpt"));
+                rd.SetDataSource(dat);
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+                try
+                {
+                    System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                    stream.Seek(0, System.IO.SeekOrigin.Begin);
+                    return File(stream, "salary/pdf", "yearlyf_salary.pdf");
                 }
                 catch
                 {

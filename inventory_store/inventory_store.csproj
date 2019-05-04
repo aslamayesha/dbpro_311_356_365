@@ -260,11 +260,28 @@
       <DependentUpon>Salaryreposrt.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\StockoutMedicine.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StockoutMedicine.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\yearlyReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>yearlyReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="StockoutDataset.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StockoutDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="yearlydata.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>yearlydata.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -394,6 +411,17 @@
     <Content Include="StockoutDataset.xss">
       <DependentUpon>StockoutDataset.xsd</DependentUpon>
     </Content>
+    <Content Include="yearlydata.xsc">
+      <DependentUpon>yearlydata.xsd</DependentUpon>
+    </Content>
+    <None Include="yearlydata.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>yearlydata.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="yearlydata.xss">
+      <DependentUpon>yearlydata.xsd</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -427,6 +455,14 @@
     <EmbeddedResource Include="Report\Salaryreposrt.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Salaryreposrt.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\StockoutMedicine.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>StockoutMedicine.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\yearlyReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>yearlyReport.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
