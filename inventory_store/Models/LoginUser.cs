@@ -8,6 +8,6 @@ namespace inventory_store.Models
     public class LoginUser
     {
         public static string Username=null;
-        public static int staffId;
+        public static int userId;
     }
 }

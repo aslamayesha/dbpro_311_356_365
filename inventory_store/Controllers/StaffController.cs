@@ -14,7 +14,7 @@ namespace inventory_store.Controllers
 {
     public class StaffController : ApplicationBaseController //Controller
     {
-        string constr ="Data Source=DESKTOP-16KVTNK;Initial Catalog=DB1;User ID=sa;Password=123";
+        string constr = "Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True";
         int prevSellQuantity=0,StaffId=0;
         List<string> allsearch = new List<string>();
         List<string> StateList = new List<string>();
@@ -36,13 +36,31 @@ namespace inventory_store.Controllers
            
             return View();
         }
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+
+        public ActionResult ChangePassword(ChangePasswordViewModel model)
+        {
+
+            string Query = string.Format("update Login set Password='{0}' where Id='{1}'", model.NewPassword, LoginUser.userId);
+            DataBaseConnection.getInstance().executeQuery(Query);
+            return RedirectToAction("Home");
+
+
+
+        }
+
         [HttpGet]
 
         public ActionResult Addmedicine()
         {
 
             list_medicine k = new list_medicine();
-            SqlConnection conn = new SqlConnection("Data Source=DESKTOP-16KVTNK;Initial Catalog=DB1;User ID=sa;Password=123");
+            SqlConnection conn = new SqlConnection("Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True");
 
             conn.Open();
             DataTable ds = new DataTable();
@@ -91,7 +109,7 @@ namespace inventory_store.Controllers
         public ActionResult delete_medicine(int? id)
         {
             list_medicine k = new list_medicine();
-            SqlConnection conn = new SqlConnection("Data Source=DESKTOP-16KVTNK;Initial Catalog=DB1;User ID=sa;Password=123");
+            SqlConnection conn = new SqlConnection("Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True");
 
             conn.Open();
             DataTable ds = new DataTable();
@@ -140,7 +158,7 @@ namespace inventory_store.Controllers
         {
             list_medicine k = new list_medicine();
             Medicine m = new Medicine();
-            SqlConnection conn = new SqlConnection("Data Source=DESKTOP-16KVTNK;Initial Catalog=DB1;User ID=sa;Password=123");
+            SqlConnection conn = new SqlConnection("Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True");
 
             conn.Open();
             DataTable ds = new DataTable();
@@ -210,7 +228,7 @@ namespace inventory_store.Controllers
         {
             List<string> name = new List<string>();
             list_inventory k = new list_inventory();
-            SqlConnection conn = new SqlConnection("Data Source=DESKTOP-16KVTNK;Initial Catalog=DB1;User ID=sa;Password=123");
+            SqlConnection conn = new SqlConnection("Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True");
 
             conn.Open();
             DataTable ds = new DataTable();
@@ -293,7 +311,7 @@ namespace inventory_store.Controllers
         public ActionResult Delete_inventory(int? id)
         {
             list_inventory k = new list_inventory();
-            SqlConnection conn = new SqlConnection("Data Source=DESKTOP-16KVTNK;Initial Catalog=DB1;User ID=sa;Password=123");
+            SqlConnection conn = new SqlConnection("Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True");
 
             conn.Open();
             DataTable ds = new DataTable();
@@ -348,7 +366,7 @@ namespace inventory_store.Controllers
         {
             list_inventory k = new list_inventory();
             Inventory m = new Inventory();
-            SqlConnection conn = new SqlConnection("Data Source=DESKTOP-16KVTNK;Initial Catalog=DB1;User ID=sa;Password=123");
+            SqlConnection conn = new SqlConnection("Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True");
 
             conn.Open();
             DataTable ds = new DataTable();
@@ -492,6 +510,32 @@ namespace inventory_store.Controllers
         //     return View(pos);
         }
 
+        public JsonResult CheckOrderExists(string Name,string Category)
+        {
+            bool UserExists = false;
+            try
+            {
+                string query = string.Format("select count(Id) from Medicine where Name={0} and Category={1} and Id=any(select MedicineId from Inventory)",Name,Category);//"select Inventory.Id from Inventory join Medicine on Medicine.Id=Inventory.MedicineId and Medicine.Name="+Name+" and Medicine.Category="+Category+"  and Inventory.Id=any(select InventoryId from Sells where Id=(select max(Id) from Sells))";
+
+                int nameexits = DataBaseConnection.getInstance().executeScalar(query);
+                if (nameexits > 0)
+                {
+                    UserExists = true;
+                }
+                else
+                {
+                    UserExists = false;
+                }
+                return Json(UserExists, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
         public ActionResult DeleteSale(int id, int inventoryId)
         {
             string queryUndoStock = string.Format("select Quantity from Sells where Id='{0}' and InventoryId='{1}'", id, inventoryId);
@@ -600,7 +644,7 @@ namespace inventory_store.Controllers
                 subtotal += float.Parse(data.GetValue(1).ToString());
             }
             total = subtotal - totaldiscount;
-            string query = string.Format("insert into Bill Values('{0}','{1}','{2}','{3}','{4}','{5}')", id, LoginUser.staffId, totaldiscount, subtotal, total,  DateTime.Now);
+            string query = string.Format("insert into Bill Values('{0}','{1}','{2}','{3}','{4}','{5}')", id, LoginUser.userId, totaldiscount, subtotal, total,  DateTime.Now);
             DataBaseConnection.getInstance().executeQuery(query);
             return RedirectToAction("AddSales");
         }
@@ -625,6 +669,12 @@ namespace inventory_store.Controllers
                 Text = "Stockout Medicine",
                 // Value = c.Id.ToString()
                 Value = "Stockout Medicine"
+            });
+            item8.Add(new SelectListItem
+            {
+                Text = "Monthly Sale",
+                // Value = c.Id.ToString()
+                Value = "Monthly Sale"
             });
             ViewBag.ReportItem = item8;
             return View();
@@ -675,7 +725,7 @@ namespace inventory_store.Controllers
 
 
 
-                DataSetDailySale dat = new DataSetDailySale();
+                DataSetSales dat = new DataSetSales();
                 DataTable T = new DataTable();
                 ada.Fill(T);
                 dat.Tables[0].Merge(T, true, MissingSchemaAction.Ignore);
@@ -730,7 +780,38 @@ namespace inventory_store.Controllers
 
 
             }
-         
+            else if (c.select == "Monthly Sale")
+            {
+                ReportDocument rd = new ReportDocument();
+                SqlConnection con = new SqlConnection(constr);
+                con.Open();
+                SqlDataAdapter ada = new SqlDataAdapter("select CONVERT(VARCHAR(10), billdate, 111) as BillMonth, sum(Total) as TotalSale from Bill group by CONVERT(VARCHAR(10), billdate, 111)", con);
+
+
+
+                DataSetSales dat = new DataSetSales();
+                DataTable T = new DataTable();
+                ada.Fill(T);
+                dat.Tables[0].Merge(T, true, MissingSchemaAction.Ignore);
+                rd.Load(System.IO.Path.Combine(Server.MapPath("~/Report"), "MonthlySalesReport.rpt"));
+                rd.SetDataSource(dat);
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+                try
+                {
+                    System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                    stream.Seek(0, System.IO.SeekOrigin.Begin);
+                    return File(stream, "sales/pdf", "Monthly_Sale.pdf");
+                }
+                catch
+                {
+                    return RedirectToAction("Report");
+                }
+
+
+            }
+
 
             return View();
         }

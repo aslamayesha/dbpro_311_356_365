@@ -20,17 +20,17 @@ namespace inventory_store {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("DataSetDailySale")]
+    [global::System.Xml.Serialization.XmlRootAttribute("DataSetSales")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class DataSetDailySale : global::System.Data.DataSet {
+    public partial class DataSetSales : global::System.Data.DataSet {
         
-        private DataTableDailySaleDataTable tableDataTableDailySale;
+        private DataTableSalesDataTable tableDataTableSales;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public DataSetDailySale() {
+        public DataSetSales() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace inventory_store {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        protected DataSetDailySale(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected DataSetSales(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace inventory_store {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["DataTableDailySale"] != null)) {
-                    base.Tables.Add(new DataTableDailySaleDataTable(ds.Tables["DataTableDailySale"]));
+                if ((ds.Tables["DataTableSales"] != null)) {
+                    base.Tables.Add(new DataTableSalesDataTable(ds.Tables["DataTableSales"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace inventory_store {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public DataTableDailySaleDataTable DataTableDailySale {
+        public DataTableSalesDataTable DataTableSales {
             get {
-                return this.tableDataTableDailySale;
+                return this.tableDataTableSales;
             }
         }
         
@@ -127,7 +127,7 @@ namespace inventory_store {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            DataSetDailySale cln = ((DataSetDailySale)(base.Clone()));
+            DataSetSales cln = ((DataSetSales)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace inventory_store {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["DataTableDailySale"] != null)) {
-                    base.Tables.Add(new DataTableDailySaleDataTable(ds.Tables["DataTableDailySale"]));
+                if ((ds.Tables["DataTableSales"] != null)) {
+                    base.Tables.Add(new DataTableSalesDataTable(ds.Tables["DataTableSales"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace inventory_store {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableDataTableDailySale = ((DataTableDailySaleDataTable)(base.Tables["DataTableDailySale"]));
+            this.tableDataTableSales = ((DataTableSalesDataTable)(base.Tables["DataTableSales"]));
             if ((initTable == true)) {
-                if ((this.tableDataTableDailySale != null)) {
-                    this.tableDataTableDailySale.InitVars();
+                if ((this.tableDataTableSales != null)) {
+                    this.tableDataTableSales.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace inventory_store {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "DataSetDailySale";
+            this.DataSetName = "DataSetSales";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/DataSetDailySale.xsd";
+            this.Namespace = "http://tempuri.org/DataSetSales.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableDataTableDailySale = new DataTableDailySaleDataTable();
-            base.Tables.Add(this.tableDataTableDailySale);
+            this.tableDataTableSales = new DataTableSalesDataTable();
+            base.Tables.Add(this.tableDataTableSales);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeDataTableDailySale() {
+        private bool ShouldSerializeDataTableSales() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace inventory_store {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            DataSetDailySale ds = new DataSetDailySale();
+            DataSetSales ds = new DataSetSales();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,23 +270,25 @@ namespace inventory_store {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void DataTableDailySaleRowChangeEventHandler(object sender, DataTableDailySaleRowChangeEvent e);
+        public delegate void DataTableSalesRowChangeEventHandler(object sender, DataTableSalesRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class DataTableDailySaleDataTable : global::System.Data.TypedTableBase<DataTableDailySaleRow> {
+        public partial class DataTableSalesDataTable : global::System.Data.TypedTableBase<DataTableSalesRow> {
             
             private global::System.Data.DataColumn columnBillDate;
+            
+            private global::System.Data.DataColumn columnBillMonth;
             
             private global::System.Data.DataColumn columnTotalSale;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DataTableDailySaleDataTable() {
-                this.TableName = "DataTableDailySale";
+            public DataTableSalesDataTable() {
+                this.TableName = "DataTableSales";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -294,7 +296,7 @@ namespace inventory_store {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal DataTableDailySaleDataTable(global::System.Data.DataTable table) {
+            internal DataTableSalesDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -311,7 +313,7 @@ namespace inventory_store {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected DataTableDailySaleDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected DataTableSalesDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -321,6 +323,14 @@ namespace inventory_store {
             public global::System.Data.DataColumn BillDateColumn {
                 get {
                     return this.columnBillDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn BillMonthColumn {
+                get {
+                    return this.columnBillMonth;
                 }
             }
             
@@ -343,46 +353,47 @@ namespace inventory_store {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DataTableDailySaleRow this[int index] {
+            public DataTableSalesRow this[int index] {
                 get {
-                    return ((DataTableDailySaleRow)(this.Rows[index]));
+                    return ((DataTableSalesRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event DataTableDailySaleRowChangeEventHandler DataTableDailySaleRowChanging;
+            public event DataTableSalesRowChangeEventHandler DataTableSalesRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event DataTableDailySaleRowChangeEventHandler DataTableDailySaleRowChanged;
+            public event DataTableSalesRowChangeEventHandler DataTableSalesRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event DataTableDailySaleRowChangeEventHandler DataTableDailySaleRowDeleting;
+            public event DataTableSalesRowChangeEventHandler DataTableSalesRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event DataTableDailySaleRowChangeEventHandler DataTableDailySaleRowDeleted;
+            public event DataTableSalesRowChangeEventHandler DataTableSalesRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddDataTableDailySaleRow(DataTableDailySaleRow row) {
+            public void AddDataTableSalesRow(DataTableSalesRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DataTableDailySaleRow AddDataTableDailySaleRow(string BillDate, string TotalSale) {
-                DataTableDailySaleRow rowDataTableDailySaleRow = ((DataTableDailySaleRow)(this.NewRow()));
+            public DataTableSalesRow AddDataTableSalesRow(string BillDate, string BillMonth, string TotalSale) {
+                DataTableSalesRow rowDataTableSalesRow = ((DataTableSalesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         BillDate,
+                        BillMonth,
                         TotalSale};
-                rowDataTableDailySaleRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowDataTableDailySaleRow);
-                return rowDataTableDailySaleRow;
+                rowDataTableSalesRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDataTableSalesRow);
+                return rowDataTableSalesRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                DataTableDailySaleDataTable cln = ((DataTableDailySaleDataTable)(base.Clone()));
+                DataTableSalesDataTable cln = ((DataTableSalesDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -390,13 +401,14 @@ namespace inventory_store {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new DataTableDailySaleDataTable();
+                return new DataTableSalesDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnBillDate = base.Columns["BillDate"];
+                this.columnBillMonth = base.Columns["BillMonth"];
                 this.columnTotalSale = base.Columns["TotalSale"];
             }
             
@@ -405,34 +417,36 @@ namespace inventory_store {
             private void InitClass() {
                 this.columnBillDate = new global::System.Data.DataColumn("BillDate", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBillDate);
+                this.columnBillMonth = new global::System.Data.DataColumn("BillMonth", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBillMonth);
                 this.columnTotalSale = new global::System.Data.DataColumn("TotalSale", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotalSale);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DataTableDailySaleRow NewDataTableDailySaleRow() {
-                return ((DataTableDailySaleRow)(this.NewRow()));
+            public DataTableSalesRow NewDataTableSalesRow() {
+                return ((DataTableSalesRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new DataTableDailySaleRow(builder);
+                return new DataTableSalesRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(DataTableDailySaleRow);
+                return typeof(DataTableSalesRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.DataTableDailySaleRowChanged != null)) {
-                    this.DataTableDailySaleRowChanged(this, new DataTableDailySaleRowChangeEvent(((DataTableDailySaleRow)(e.Row)), e.Action));
+                if ((this.DataTableSalesRowChanged != null)) {
+                    this.DataTableSalesRowChanged(this, new DataTableSalesRowChangeEvent(((DataTableSalesRow)(e.Row)), e.Action));
                 }
             }
             
@@ -440,8 +454,8 @@ namespace inventory_store {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.DataTableDailySaleRowChanging != null)) {
-                    this.DataTableDailySaleRowChanging(this, new DataTableDailySaleRowChangeEvent(((DataTableDailySaleRow)(e.Row)), e.Action));
+                if ((this.DataTableSalesRowChanging != null)) {
+                    this.DataTableSalesRowChanging(this, new DataTableSalesRowChangeEvent(((DataTableSalesRow)(e.Row)), e.Action));
                 }
             }
             
@@ -449,8 +463,8 @@ namespace inventory_store {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.DataTableDailySaleRowDeleted != null)) {
-                    this.DataTableDailySaleRowDeleted(this, new DataTableDailySaleRowChangeEvent(((DataTableDailySaleRow)(e.Row)), e.Action));
+                if ((this.DataTableSalesRowDeleted != null)) {
+                    this.DataTableSalesRowDeleted(this, new DataTableSalesRowChangeEvent(((DataTableSalesRow)(e.Row)), e.Action));
                 }
             }
             
@@ -458,14 +472,14 @@ namespace inventory_store {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.DataTableDailySaleRowDeleting != null)) {
-                    this.DataTableDailySaleRowDeleting(this, new DataTableDailySaleRowChangeEvent(((DataTableDailySaleRow)(e.Row)), e.Action));
+                if ((this.DataTableSalesRowDeleting != null)) {
+                    this.DataTableSalesRowDeleting(this, new DataTableSalesRowChangeEvent(((DataTableSalesRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveDataTableDailySaleRow(DataTableDailySaleRow row) {
+            public void RemoveDataTableSalesRow(DataTableSalesRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -474,7 +488,7 @@ namespace inventory_store {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                DataSetDailySale ds = new DataSetDailySale();
+                DataSetSales ds = new DataSetSales();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -492,7 +506,7 @@ namespace inventory_store {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "DataTableDailySaleDataTable";
+                attribute2.FixedValue = "DataTableSalesDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -536,15 +550,15 @@ namespace inventory_store {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class DataTableDailySaleRow : global::System.Data.DataRow {
+        public partial class DataTableSalesRow : global::System.Data.DataRow {
             
-            private DataTableDailySaleDataTable tableDataTableDailySale;
+            private DataTableSalesDataTable tableDataTableSales;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal DataTableDailySaleRow(global::System.Data.DataRowBuilder rb) : 
+            internal DataTableSalesRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableDataTableDailySale = ((DataTableDailySaleDataTable)(this.Table));
+                this.tableDataTableSales = ((DataTableSalesDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -552,14 +566,30 @@ namespace inventory_store {
             public string BillDate {
                 get {
                     try {
-                        return ((string)(this[this.tableDataTableDailySale.BillDateColumn]));
+                        return ((string)(this[this.tableDataTableSales.BillDateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'BillDate\' in table \'DataTableDailySale\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'BillDate\' in table \'DataTableSales\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDataTableDailySale.BillDateColumn] = value;
+                    this[this.tableDataTableSales.BillDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string BillMonth {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTableSales.BillMonthColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BillMonth\' in table \'DataTableSales\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTableSales.BillMonthColumn] = value;
                 }
             }
             
@@ -568,39 +598,51 @@ namespace inventory_store {
             public string TotalSale {
                 get {
                     try {
-                        return ((string)(this[this.tableDataTableDailySale.TotalSaleColumn]));
+                        return ((string)(this[this.tableDataTableSales.TotalSaleColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TotalSale\' in table \'DataTableDailySale\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'TotalSale\' in table \'DataTableSales\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDataTableDailySale.TotalSaleColumn] = value;
+                    this[this.tableDataTableSales.TotalSaleColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsBillDateNull() {
-                return this.IsNull(this.tableDataTableDailySale.BillDateColumn);
+                return this.IsNull(this.tableDataTableSales.BillDateColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetBillDateNull() {
-                this[this.tableDataTableDailySale.BillDateColumn] = global::System.Convert.DBNull;
+                this[this.tableDataTableSales.BillDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsBillMonthNull() {
+                return this.IsNull(this.tableDataTableSales.BillMonthColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetBillMonthNull() {
+                this[this.tableDataTableSales.BillMonthColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsTotalSaleNull() {
-                return this.IsNull(this.tableDataTableDailySale.TotalSaleColumn);
+                return this.IsNull(this.tableDataTableSales.TotalSaleColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetTotalSaleNull() {
-                this[this.tableDataTableDailySale.TotalSaleColumn] = global::System.Convert.DBNull;
+                this[this.tableDataTableSales.TotalSaleColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -608,22 +650,22 @@ namespace inventory_store {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class DataTableDailySaleRowChangeEvent : global::System.EventArgs {
+        public class DataTableSalesRowChangeEvent : global::System.EventArgs {
             
-            private DataTableDailySaleRow eventRow;
+            private DataTableSalesRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DataTableDailySaleRowChangeEvent(DataTableDailySaleRow row, global::System.Data.DataRowAction action) {
+            public DataTableSalesRowChangeEvent(DataTableSalesRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DataTableDailySaleRow Row {
+            public DataTableSalesRow Row {
                 get {
                     return this.eventRow;
                 }

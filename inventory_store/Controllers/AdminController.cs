@@ -22,6 +22,22 @@ namespace inventory_store.Controllers
             return View();
         }
 
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        //   [AllowAnonymous]
+        public ActionResult ChangePassword(ChangePasswordViewModel model)
+        {
+
+            string Query = string.Format("update Login set Password='{0}' where Id='{1}'", model.NewPassword, LoginUser.userId);
+            DataBaseConnection.getInstance().executeQuery(Query);
+            return RedirectToAction("Home");
+
+
+
+        }
 
         [HttpGet]
         public ActionResult Addstaff()

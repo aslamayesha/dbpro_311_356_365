@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace inventory_store.Report {
+namespace inventory_store {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -41,7 +41,7 @@ namespace inventory_store.Report {
         
         public override string FullResourceName {
             get {
-                return "inventory_store.Report.StockoutMedicine.rpt";
+                return "inventory_store.StockoutMedicine.rpt";
             }
             set {
                 // Do nothing

@@ -205,15 +205,15 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\UserAccountController.cs" />
-    <Compile Include="DataSetDailySale.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetDailySale.xsd</DependentUpon>
-    </Compile>
     <Compile Include="DataSetExpiry.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetExpiry.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetSales.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetSales.xsd</DependentUpon>
     </Compile>
     <Compile Include="DataSetSalry.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -249,6 +249,12 @@
       <DependentUpon>DailySalesReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\MonthlySalesReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MonthlySalesReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\reportexpired.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -261,7 +267,7 @@
       <DependentUpon>Salaryreposrt.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Report\StockoutMedicine.cs">
+    <Compile Include="StockoutMedicine.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StockoutMedicine.rpt</DependentUpon>
@@ -312,17 +318,6 @@
     <Content Include="DataSetExpiry.xsc">
       <DependentUpon>DataSetExpiry.xsd</DependentUpon>
     </Content>
-    <Content Include="DataSetDailySale.xsc">
-      <DependentUpon>DataSetDailySale.xsd</DependentUpon>
-    </Content>
-    <None Include="DataSetDailySale.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetDailySale.Designer.cs</LastGenOutput>
-    </None>
-    <Content Include="DataSetDailySale.xss">
-      <DependentUpon>DataSetDailySale.xsd</DependentUpon>
-    </Content>
     <None Include="DataSetExpiry.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -330,6 +325,17 @@
     </None>
     <Content Include="DataSetExpiry.xss">
       <DependentUpon>DataSetExpiry.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSetSales.xsc">
+      <DependentUpon>DataSetSales.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSetSales.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetSales.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DataSetSales.xss">
+      <DependentUpon>DataSetSales.xsd</DependentUpon>
     </Content>
     <None Include="DataSetSalry.xsd">
       <SubType>Designer</SubType>
@@ -415,6 +421,8 @@
     <Content Include="yearlydata.xsc">
       <DependentUpon>yearlydata.xsd</DependentUpon>
     </Content>
+    <Content Include="Views\Admin\ChangePassword.cshtml" />
+    <Content Include="Views\Staff\ChangePassword.cshtml" />
     <None Include="yearlydata.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -449,6 +457,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>DailySalesReport.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\MonthlySalesReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MonthlySalesReport.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\reportexpired.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>reportexpired.cs</LastGenOutput>
@@ -457,7 +469,7 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Salaryreposrt.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Report\StockoutMedicine.rpt">
+    <EmbeddedResource Include="StockoutMedicine.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>StockoutMedicine.cs</LastGenOutput>
     </EmbeddedResource>

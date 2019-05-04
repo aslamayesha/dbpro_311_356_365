@@ -13,7 +13,7 @@ namespace inventory_store.Controllers
         // GET: UserAccount
         public UserAccountController()
         {
-            DataBaseConnection.getInstance().conStr = "Data Source=FINE\\AYESHASLAM;Initial Catalog=DB1;Integrated Security=True";
+            DataBaseConnection.getInstance().conStr = "Data Source=UET\\NUMANSQL;Initial Catalog=DB1;Integrated Security=True";
             DataBaseConnection.getInstance().getConnection();
         }
 
@@ -43,10 +43,11 @@ namespace inventory_store.Controllers
                     // string role = null;
                     obj.Read();
 
-                    int staffId = 0;
-                    string queryStaffId = string.Format("select Id from Login where Username='{0}' and Email='{1}'", model.Username, model.Email);
-                     staffId = DataBaseConnection.getInstance().executeScalar(queryStaffId);
+                    int userId = 0;
+                    string queryUserId = string.Format("select Id from Login where Username='{0}' and Email='{1}'", model.Username, model.Email);
+                    userId = DataBaseConnection.getInstance().executeScalar(queryUserId);
                     LoginUser.Username = model.Username;
+                    LoginUser.userId = userId;
                     if (obj.GetValue(0).ToString() == "Admin")
                     {
                        
@@ -56,7 +57,7 @@ namespace inventory_store.Controllers
                     else
                     {
                         //return RedirectToAction("Home", "Staff");
-                        LoginUser.staffId = staffId;
+                     
                         return RedirectToAction("Home", "Staff");
                         // return RedirectToAction("Home", "Staff", new { staffId = staffId });
                     }
