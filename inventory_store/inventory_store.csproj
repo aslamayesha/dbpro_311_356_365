@@ -236,6 +236,7 @@
     <Compile Include="Models\LoginUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Medicine.cs" />
+    <Compile Include="Models\MinValueAttribute.cs" />
     <Compile Include="Models\PreviousSale.cs" />
     <Compile Include="Models\ReportCreation.cs" />
     <Compile Include="Models\reportstaff.cs" />

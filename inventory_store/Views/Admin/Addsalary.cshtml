@@ -1,11 +1,10 @@
 ﻿@model inventory_store.Models.List_salary
 
 @{
-    ViewBag.Title = "Addsalary";
+    @Scripts.Render("~/bundles/jqueryval")
 
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 <div class="panel panel-default" style="box-shadow:2px 2px 5px grey">
     <div class="panel-heading">
 
@@ -13,6 +12,7 @@
         Staff
     </div>
 </div>
+<p style="color:red;">@ViewBag.Error</p>
 
 @using (Html.BeginForm())
 {
@@ -166,6 +166,8 @@
                                             </div>
                                         </div>
                                     </td>
+                                  
+                                   
                                     @*<td>
 
                                         <div class="container">
@@ -201,8 +203,16 @@
 
 
                     </table>
+                    
+                        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+                        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+                        <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+                        <script src="//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
+                    
                 </div>
             </div>
         </div>
     </div>
+  
 }

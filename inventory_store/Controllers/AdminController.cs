@@ -27,6 +27,7 @@ namespace inventory_store.Controllers
         public ActionResult Addstaff()
         {
             list_staff f = new list_staff();
+            
             SqlConnection con = conD.getConnection();
             if (con.State == System.Data.ConnectionState.Open)
             {
@@ -67,8 +68,8 @@ namespace inventory_store.Controllers
                     {
                         if (dr["Email"].ToString() == s.staff.Email)
                         {
-                            
-                            ViewBag.ErrorMessage = "Email Already Exists";
+
+                            ViewBag.Error = "->>Email already Exists ";
                             return View("Addstaff", s);
 
 
@@ -354,6 +355,29 @@ namespace inventory_store.Controllers
             SqlConnection con = conD.getConnection();
             if (con.State == System.Data.ConnectionState.Open)
             {
+                SqlDataAdapter sda1 = new SqlDataAdapter("Select * From Salary Where StaffId='" + id + "'", con);
+                DataTable TT = new DataTable();
+                sda1.Fill(TT);
+
+                foreach (DataRow dr in TT.Rows)  // dt is a DataTable
+                {
+
+                    k.list.Add(new Salary { med_id = Convert.ToInt32(dr["StaffId"]), SalaryAmount = Convert.ToInt32(dr["SalaryAmount"]), bonus = Convert.ToInt32(dr["Bonus"]), Month = Convert.ToDateTime(dr["Month"]) });
+
+
+                }
+                foreach (DataRow dr in TT.Rows)  // dt is a DataTable
+                {
+                    if (Convert.ToDateTime(dr["Month"]).Year == k.s.Month.Year && Convert.ToDateTime(dr["Month"]).Month ==k.s.Month.Month)
+                    {
+
+                        ViewBag.Error = "->>The salary of this month already exists ";
+                        return View("Addsalary", k);
+
+
+                    }
+
+                }
 
                 string q = "Insert INTO [Salary] VALUES('" + Convert.ToInt32(id) + "','" + Convert.ToInt32(k.s.SalaryAmount) + "','" + Convert.ToInt32(k.s.bonus) + "','" + Convert.ToDateTime(k.s.Month) + "')";
                 SqlCommand cmd = new SqlCommand(q, con);
