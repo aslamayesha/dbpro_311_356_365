@@ -3,8 +3,10 @@
 
 @{
     ViewBag.Title = "addmedicine";
+    @Scripts.Render("~/bundles/jqueryval")
     Layout = "~/Views/Shared/_LayoutStaff.cshtml";
 }
+
 
 <div class="panel panel-default" style="box-shadow:2px 2px 5px grey">
     <div class="panel-heading">
@@ -52,6 +54,34 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.med.Price, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.med.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.med.MedicinePerPack, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.med.MedicinePerPack, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.med.MedicinePerPack, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.med.PurchasePricePack, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.med.PurchasePricePack, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.med.PurchasePricePack, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.med.SellingPriceItem, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.med.SellingPriceItem, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.med.SellingPriceItem, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.med.ThresholdQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.med.ThresholdQuantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.med.ThresholdQuantity, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -149,6 +179,23 @@
                                 @Html.DisplayNameFor(model => model.med.Price)
 
                             </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.med.MedicinePerPack)
+
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.med.PurchasePricePack)
+
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.med.SellingPriceItem)
+
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.med.ThresholdQuantity)
+
+                            </th>
+                           
 
 
 
@@ -171,6 +218,18 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Price)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MedicinePerPack)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PurchasePricePack)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SellingPriceItem)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ThresholdQuantity)
                                 </td>
                                 <td>
 

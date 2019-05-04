@@ -17,13 +17,19 @@ namespace inventory_store.Models
         [Required]
         public int MedicineId { get; set; }
         [Required]
+        [Range(1, Int32.MaxValue)]
         public int NumberofPacks { get; set; }
         [Required]
+        [Range(1, Int32.MaxValue)]
         public int Quantity { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ManufactureDate { get; set; }
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ExpiryDate { get; set; }
 
 
