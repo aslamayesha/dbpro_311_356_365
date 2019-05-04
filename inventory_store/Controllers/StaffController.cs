@@ -618,6 +618,12 @@ namespace inventory_store.Controllers
                 // Value = c.Id.ToString()
                 Value = "Daily Sale"
             });
+            item8.Add(new SelectListItem
+            {
+                Text = "Stockout Medicine",
+                // Value = c.Id.ToString()
+                Value = "Stockout Medicine"
+            });
             ViewBag.ReportItem = item8;
             return View();
         }
@@ -689,6 +695,39 @@ namespace inventory_store.Controllers
 
 
             }
+            else if (c.select == "Stockout Medicine")
+            {
+                ReportDocument rd = new ReportDocument();
+                SqlConnection con = new SqlConnection(constr);
+                con.Open();
+                SqlDataAdapter ada = new SqlDataAdapter("SELECT Medicine.Id,Medicine.Name,Inventory.Quantity,MedicineInventory.ThresholdQuantity FROM Medicine JOIN Inventory  ON Medicine.Id = Inventory.MedicineId JOIN MedicineInventory ON MedicineInventory.MedicineId = Inventory.MedicineId where Inventory.Quantity < MedicineInventory.ThresholdQuantity)", con);
+
+
+
+             StockoutDataset dat = new  StockoutDataset();
+                DataTable T = new DataTable();
+                ada.Fill(T);
+                dat.Tables[0].Merge(T, true, MissingSchemaAction.Ignore);
+                rd.Load(System.IO.Path.Combine(Server.MapPath("~/Report"), "StockoutMedicine.rpt"));
+                rd.SetDataSource(dat);
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+                try
+                {
+                    System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                    stream.Seek(0, System.IO.SeekOrigin.Begin);
+                    return File(stream, "stockout/pdf", "StockoutMedicine.pdf");
+                }
+                catch
+                {
+                    return RedirectToAction("Report");
+                }
+
+
+            }
+         
+
             return View();
         }
 

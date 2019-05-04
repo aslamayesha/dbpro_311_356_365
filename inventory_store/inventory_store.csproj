@@ -261,6 +261,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="StockoutDataset.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StockoutDataset.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -378,6 +383,17 @@
     <Content Include="Views\Admin\customer_detail.cshtml" />
     <Content Include="Views\Admin\Report.cshtml" />
     <Content Include="Views\Staff\Report.cshtml" />
+    <Content Include="StockoutDataset.xsc">
+      <DependentUpon>StockoutDataset.xsd</DependentUpon>
+    </Content>
+    <None Include="StockoutDataset.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StockoutDataset.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="StockoutDataset.xss">
+      <DependentUpon>StockoutDataset.xsd</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
