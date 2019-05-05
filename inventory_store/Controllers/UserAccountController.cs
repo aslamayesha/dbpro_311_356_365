@@ -31,9 +31,10 @@ namespace inventory_store.Controllers
         [AllowAnonymous]
         public ActionResult Login(RegisterViewModel model)
         {
-
+            ViewBag.invalidLogin = "";
             if (ModelState.IsValid)
             {
+
                 string authorizeQuery = string.Format("select count(Id) from Login where Username='{0}' and Email='{1}' and Password='{2}'", model.Username, model.Email, model.Password);
                 int isExistCount = DataBaseConnection.getInstance().executeScalar(authorizeQuery);
                 if (isExistCount > 0)
@@ -61,6 +62,11 @@ namespace inventory_store.Controllers
                         return RedirectToAction("Home", "Staff");
                         // return RedirectToAction("Home", "Staff", new { staffId = staffId });
                     }
+                }
+                else
+                {
+                    ViewBag.invalidLogin = "Invalid Login";
+                    return View(model);
                 }
             }
             return View(model);
@@ -91,7 +97,8 @@ namespace inventory_store.Controllers
                     string query = string.Format("insert into Login(Id,Username,Email,Password,Role) values('{0}','{1}','{2}','{3}','{4}')", 1, model.Username, model.Email, model.Password, "Admin");
                     DataBaseConnection.getInstance().executeQuery(query);
                 }
-
+                LoginUser.Username = model.Username;
+             
                 ViewBag.LoginUser = model.Username;
                 return RedirectToAction("Home", "Admin");
             }

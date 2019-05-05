@@ -15,6 +15,10 @@
     Add Inventory
 </div>
 </div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="~/Scripts/autocomplete-jquery.js"></script>
 
 @using (Html.BeginForm())
 {
@@ -26,7 +30,7 @@
     
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.med.Category, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
 
@@ -43,7 +47,38 @@
                    "Select Name", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.med.Name, "", new { @class = "text-danger" })
             </div>
+        </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.inv.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.inv.Name, new { htmlAttributes = new { @class = "form-control Name" } })
+                @Html.ValidationMessageFor(model => model.inv.Name, "", new { @class = "text-danger" })
+            </div>
         </div>
+
+
+        @if (ViewBag.EditMode == "EditMode")
+        {
+            @*<div> @ViewBag.vl </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.inv.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.inv.Category, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.inv.Category, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.inv.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.inv.Category, new SelectList(" "), "--Select Category--", new { @class = "form-control Category" })
+
+                    @Html.ValidationMessageFor(model => model.inv.Category, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
         <div class="form-group">
             @Html.LabelFor(model => model.inv.NumberofPacks, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -268,3 +303,42 @@
         </div>
     </div>
 </div>
+
+@*autocomplete script start*@
+<script>
+    $(".Name").autocomplete({
+
+        source: function (request, response) {
+            $.ajax({
+                url: '@Url.Action("GetSearchValue","Staff")',
+                dataType: "json",
+                data: { search: $(".Name").val() },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                   return { label: item , value: item
+
+                        };
+                    }));
+                },
+
+               error: function (xhr, status, error) {
+                    alert("Error");
+                }
+            });
+        }
+    });
+</script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".Name").change(function () {
+            $.get("/Staff/GetStateList", { CountryId: $(".Name").val() }, function (data) {
+                $(".Category").empty();
+                $.each(data, function (index, row) {
+                    $(".Category").append("<option value='" + row + "'>" + row + "</option>")
+                });
+            });
+        })
+    });
+</script>
+@*autcomplete method end script*@

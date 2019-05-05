@@ -428,14 +428,15 @@ namespace inventory_store.Controllers
                 ViewBag.Category = item8;
 
                 ViewBag.Name = item9;
-                list_inventory.CategoryList = new SelectList(k.llistinv, "Category", "Category");
-                list_inventory.CategoryList = new SelectList(k.llistinv, "Name", "Name");
+           //     list_inventory.CategoryList = new SelectList(k.llistinv, "Category", "Category");
+            //    list_inventory.CategoryList = new SelectList(k.llistinv, "Name", "Name");
                 k.inv = m;
 
 
 
 
             }
+            ViewBag.EditMode = "EditMode";
             return View("Inventory", k);
 
 
@@ -484,58 +485,75 @@ namespace inventory_store.Controllers
 
         [HttpPost]
         public ActionResult AddSales(CreatePOS orderItem)
-        { 
+        {
+            ViewBag.existOrder = "";
+            bool isInvalid = false;
+            ////////////////////////////get inventory id////////////////////////////////////////////
             string queryinventory = string.Format("select top 1 Inventory.Id,Medicine.Price from Inventory join Medicine on Medicine.Id=Inventory.MedicineId and  Medicine.Name='{0}' and Medicine.Category='{1}'", orderItem.sale.Name, orderItem.sale.Category);
             var inventory = DataBaseConnection.getInstance().readData(queryinventory);
             inventory.Read();
+
             int inventoryId = (int)inventory.GetValue(0);
-            int price= (int)inventory.GetValue(1);
-         
-            float subtotal = float.Parse((orderItem.sale.Quantity*price).ToString());
-            string queryInsert = string.Format("insert into Sells values('{0}','{1}','{2}','{3}','{4}')", this.customerBillId(), inventoryId, orderItem.sale.Quantity, orderItem.sale.Discount, subtotal);
-            DataBaseConnection.getInstance().executeQuery(queryInsert);
-
-            /////update inventory quantity////////////////
-            string queryUpdateInventory = string.Format("update Inventory set Quantity=(select Quantity from Inventory where Id='{1}')-'{0}' where Id='{1}'", orderItem.sale.Quantity,inventoryId);
-            DataBaseConnection.getInstance().executeQuery(queryUpdateInventory);
-
-            ////////upadet pack ///////////
-            string queryUpdatePack = string.Format("update Inventory set NumberofPacks=(Quantity/(select MedicinePerPack from MedicineInventory join Inventory on Inventory.MedicineId=MedicineInventory.MedicineId and Inventory.Id='{0}')) where Id='{0}'", inventoryId);
-            DataBaseConnection.getInstance().executeQuery(queryUpdatePack);
-            //   string updateInventory=string.Format("update Inventory set Quantity='{0}'",)
-            // string query=string.Format("insert into ")
-
-
-            return RedirectToAction("AddSales");
-        //     return View(pos);
-        }
-
-        public JsonResult CheckOrderExists(string Name,string Category)
-        {
-            bool UserExists = false;
-            try
+            ///////////////////////////check medicine already in sale/////////////////////////////
+            string existCheckQuery=string.Format("select count(Inventory.Id) from Inventory join Medicine on Medicine.Id=Inventory.MedicineId and Name='{0}' and Category='{1}' and Inventory.Id=any(select InventoryId from Sells where Id='{2}')", orderItem.sale.Name,orderItem.sale.Category,this.customerBillId());
+int countOrderAlready = DataBaseConnection.getInstance().executeScalar(existCheckQuery);
+            //////////////////////////////check quantity exist///////////////////////
+            string quantityexistQuery = string.Format("select Inventory.Quantity from Inventory where Inventory.Id='{0}'",inventoryId);
+            int countQuantityTotal = DataBaseConnection.getInstance().executeScalar(quantityexistQuery);
+            if (countOrderAlready > 0)
             {
-                string query = string.Format("select count(Id) from Medicine where Name={0} and Category={1} and Id=any(select MedicineId from Inventory)",Name,Category);//"select Inventory.Id from Inventory join Medicine on Medicine.Id=Inventory.MedicineId and Medicine.Name="+Name+" and Medicine.Category="+Category+"  and Inventory.Id=any(select InventoryId from Sells where Id=(select max(Id) from Sells))";
-
-                int nameexits = DataBaseConnection.getInstance().executeScalar(query);
-                if (nameexits > 0)
-                {
-                    UserExists = true;
-                }
-                else
-                {
-                    UserExists = false;
-                }
-                return Json(UserExists, JsonRequestBehavior.AllowGet);
+                ViewBag.existOrder = "Items already added in order";
+                isInvalid = true;
             }
-
-            catch (Exception)
+            else if(orderItem.sale.Quantity > countQuantityTotal)
             {
-                return Json(false, JsonRequestBehavior.AllowGet);
+                ViewBag.existOrder = "Quantity not exist";
+                isInvalid = true;
             }
+            if (isInvalid) { 
+                string query = "select Sells.InventoryId,Medicine.Name,Medicine.Category,Medicine.Price,Sells.Quantity,Sells.Discount,Sells.Subtotal from Sells join Inventory on Inventory.Id=Sells.InventoryId join Medicine on Medicine.Id=Inventory.MedicineId and Sells.Id='" + this.customerBillId() + "'";
+                var data = DataBaseConnection.getInstance().readData(query);
+                while (data.Read())
+                {
+                    Sales sale = new Sales();
+                    sale.SaleId = this.customerBillId();
+                    sale.InventoryId = (int)data.GetValue(0);
+                    sale.Name = data.GetValue(1).ToString();
+                    sale.Category = data.GetValue(2).ToString();
+                    sale.Price = (int)data.GetValue(3);
+                    sale.Quantity = (int)data.GetValue(4);
+                    sale.Discount = float.Parse(data.GetValue(5).ToString());
+                    sale.Subtotal = float.Parse(data.GetValue(6).ToString());
+                    pos.listSale.Add(sale);
+                }
+                pos.sale = orderItem.sale;
+                return View(pos);
+            }
+            else if(!isInvalid)
+            {
+              
+                int price = (int)inventory.GetValue(1);
+
+                float subtotal = float.Parse((orderItem.sale.Quantity * price).ToString());
+                string queryInsert = string.Format("insert into Sells values('{0}','{1}','{2}','{3}','{4}')", this.customerBillId(), inventoryId, orderItem.sale.Quantity, orderItem.sale.Discount, subtotal);
+                DataBaseConnection.getInstance().executeQuery(queryInsert);
+
+                /////update inventory quantity////////////////
+                string queryUpdateInventory = string.Format("update Inventory set Quantity=(select Quantity from Inventory where Id='{1}')-'{0}' where Id='{1}'", orderItem.sale.Quantity, inventoryId);
+                DataBaseConnection.getInstance().executeQuery(queryUpdateInventory);
+
+                ////////upadet pack ///////////
+                string queryUpdatePack = string.Format("update Inventory set NumberofPacks=(Quantity/(select MedicinePerPack from MedicineInventory join Inventory on Inventory.MedicineId=MedicineInventory.MedicineId and Inventory.Id='{0}')) where Id='{0}'", inventoryId);
+                DataBaseConnection.getInstance().executeQuery(queryUpdatePack);
+                //   string updateInventory=string.Format("update Inventory set Quantity='{0}'",)
+                // string query=string.Format("insert into ")
+
+
+                return RedirectToAction("AddSales");
+            }
+            return View();
         }
-
-
+    
         public ActionResult DeleteSale(int id, int inventoryId)
         {
             string queryUndoStock = string.Format("select Quantity from Sells where Id='{0}' and InventoryId='{1}'", id, inventoryId);
@@ -579,6 +597,7 @@ namespace inventory_store.Controllers
             }
 
             ViewBag.EditMode = "EditMode";
+            ViewBag.msg = "Quantity  has been added already";
             ViewBag.vl = prevSellQuantity;
             //   ViewBag.CategoryList = new SelectList(MedicineCategories, "Category", "Category");
             return View("AddSales", pos);

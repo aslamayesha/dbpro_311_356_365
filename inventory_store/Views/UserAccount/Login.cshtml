@@ -13,6 +13,8 @@
     @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+    <div style="color:red">@ViewBag.invalidLogin</div>
     <div class="container-login100" style="background-image: url('~/Radiant/images//bg-01.jpg');">
 
         <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
